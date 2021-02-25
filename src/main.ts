@@ -22,19 +22,32 @@ function loadPlugins() {
 
 function commandCatcher(lastMessage: WAMessage) {
   loadedCommands.map(async (command) => {
-    let match: RegExpMatchArray | null = null;
+    let message: string = '';
     if (lastMessage.message?.conversation) {
-      match = lastMessage.message.conversation.match(command.pattern);
+      // If user simply just use the command
+      message = lastMessage.message.conversation;
+    }
+
+    if (lastMessage.message?.extendedTextMessage) {
+      // If user quoted a message
+      if (lastMessage.message.extendedTextMessage.text) {
+        message = lastMessage.message.extendedTextMessage.text;
+      }
     }
 
     if (lastMessage.message?.imageMessage?.caption) {
-      match = lastMessage?.message?.imageMessage.caption.match(command.pattern);
+      // If replying a image message with command
+      message = lastMessage?.message?.imageMessage.caption;
     }
 
-    if (match) {
-      const client = new Message(bot, lastMessage);
+    // Check if message contains any command with help of regex.
+    let match: RegExpMatchArray | null = message.match(command.pattern);
 
+    if (match) {
+      console.log(match);
+      const client = new Message(bot, lastMessage);
       command.function(client, match);
+      await client.delete();
     }
   });
 }
