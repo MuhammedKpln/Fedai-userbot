@@ -33,14 +33,18 @@ addCommand(
     desc: Lang['DESC'],
   },
   async (message, match) => {
-    const userName = match[1];
+    let userName: string = '';
+    if (match) {
+      userName = match[1];
+    }
 
-    if (!userName)
+    if (!userName) {
       return await message.sendMessage(
         message.jid,
         errorMessage(Lang['NEED_WORD']),
         MessageType.text,
       );
+    }
 
     await message.sendMessage(
       message.jid,

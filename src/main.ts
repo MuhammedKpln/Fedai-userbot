@@ -22,9 +22,14 @@ function loadPlugins() {
 
 function commandCatcher(lastMessage: WAMessage) {
   loadedCommands.map(async (command) => {
-    const match: RegExpMatchArray = lastMessage.message.conversation.match(
-      command.pattern,
-    );
+    let match: RegExpMatchArray | null = null;
+    if (lastMessage.message?.conversation) {
+      match = lastMessage.message.conversation.match(command.pattern);
+    }
+
+    if (lastMessage.message?.imageMessage?.caption) {
+      match = lastMessage?.message?.imageMessage.caption.match(command.pattern);
+    }
 
     if (match) {
       const client = new Message(bot, lastMessage);
@@ -40,11 +45,11 @@ async function init() {
   loadPlugins();
 
   bot.on('chat-update', (result: WAChatUpdate) => {
-    const lastMessage: WAMessage = result.messages
-      ? result.messages.all()[0]
-      : null;
+    if (result.messages) {
+      const lastMessage: WAMessage = result.messages.all()[0];
 
-    commandCatcher(lastMessage);
+      commandCatcher(lastMessage);
+    }
   });
 }
 

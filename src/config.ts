@@ -7,8 +7,8 @@ if (fs.existsSync('../../config.env')) {
   require('dotenv').config({ path: '../../config.env' });
 }
 
-export const SESSION: string = process.env.SESSION;
+export const SESSION: string = process.env.SESSION || '';
 export const VERSION: string = '0.15';
-export const HANDLERS: string = '[.!;]';
+export const HANDLERS: string = process.env.HANDLERS?.toString() || '[.!;]';
 export const LANG: TLanguages =
-  (process.env.BOT_LANG.toUpperCase() as TLanguages) || 'EN';
+  (process.env.BOT_LANG?.toUpperCase() as TLanguages) || 'EN';

@@ -1,6 +1,20 @@
 import { HANDLERS } from '../config';
 import Message from '../types/message';
 
+interface ICommandArgs {
+  pattern: string;
+  on?: string;
+  fromMe: boolean;
+  onlyGroup?: boolean;
+  onlyPinned?: boolean;
+  onlyPm?: boolean;
+  deleteCommand?: boolean;
+  desc?: string;
+  usage?: string;
+  dontAddCommandList?: boolean;
+  warn?: string;
+}
+
 interface ICommand {
   pattern: string;
   on?: string;
@@ -13,13 +27,13 @@ interface ICommand {
   usage?: string;
   dontAddCommandList?: boolean;
   warn?: string;
-  function?: (client: Message, match?: RegExpMatchArray) => void;
+  function: (client: Message, match?: RegExpMatchArray) => void;
 }
 
 export const loadedCommands: ICommand[] = [];
 
 export function addCommand(
-  info: ICommand,
+  info: ICommandArgs,
   func: (client: Message, match?: RegExpMatchArray) => void,
 ): ICommand {
   // Basit bir fonksiyon, komut eklemek için.

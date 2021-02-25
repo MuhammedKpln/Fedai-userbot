@@ -6,19 +6,19 @@ import {
 } from '@adiwajshing/baileys';
 import Message from './message';
 
-export default class Image extends WAConnection {
+export default class MediaMessage extends WAConnection {
   data: WAMessage;
   client: WAConnection;
   jid: string;
-  id: string;
+  id: string | null;
   fromMe: boolean;
-  timestamp: number;
-  url: string;
-  caption: string;
-  mimetype: string;
-  height: number;
-  width: number;
-  mediaKey: Uint8Array;
+  timestamp: number | null;
+  url: string | null;
+  caption: string | null;
+  mimetype: string | null;
+  height: number | null;
+  width: number | null;
+  mediaKey: Uint8Array | null;
 
   constructor(client: WAConnection, data: WAMessage) {
     super();
@@ -27,45 +27,57 @@ export default class Image extends WAConnection {
   }
 
   _patch(data: WAMessage) {
-    this.id = data.key.id === undefined ? undefined : data.key.id;
-    this.jid = data.key.remoteJid;
-    this.fromMe = data.key.fromMe;
-    this.caption =
-      data.message.imageMessage.caption === null
-        ? data.message.imageMessage.caption
-        : '';
-    this.url = data.message.imageMessage.url;
+    this.id = data.key.id || null;
+    if (data.key.remoteJid) {
+      this.jid = data.key.remoteJid;
+    }
+    if (data.key.fromMe) {
+      this.fromMe = data.key.fromMe;
+    }
+    this.caption = data.message?.imageMessage?.caption || null;
+
+    this.url = data.message?.imageMessage?.url || null;
     this.timestamp =
       typeof data.messageTimestamp === 'object'
         ? data.messageTimestamp.low
         : data.messageTimestamp;
-    this.mimetype = data.message.imageMessage.mimetype;
-    this.height = data.message.imageMessage.height;
-    this.width = data.message.imageMessage.width;
-    this.mediaKey = data.message.imageMessage.mediaKey;
+    this.mimetype = data.message?.imageMessage?.mimetype || null;
+    this.height = data.message?.imageMessage?.height || null;
+    this.width = data.message?.imageMessage?.width || null;
+    this.mediaKey = data.message?.imageMessage?.mediaKey || null;
     this.data = data;
   }
 
   async delete() {
-    return await this.client.deleteMessage(this.jid, {
-      id: this.id,
-      remoteJid: this.jid,
-      fromMe: true,
-    });
+    if (this.jid) {
+      return await this.deleteMessage(this.jid, {
+        id: this.id,
+        remoteJid: this.jid,
+        fromMe: true,
+      });
+    }
+
+    return false;
   }
 
   async reply(text) {
-    var message = await this.client.sendMessage(
-      this.jid,
-      text,
-      MessageType.text,
-      { quoted: this.data },
-    );
-    return new Message(this.client, message);
-  }
+    if (this.jid) {
+      var message = await this.client.sendMessage(
+        this.jid,
+        text,
+        MessageType.text,
+        { quoted: this.data },
+      );
+      return new Message(this.client, message);
+    }
 
+    return false;
+  }
+  //@ts-ignore
   async sendMessage(content, type, options) {
-    return await this.client.sendMessage(this.jid, content, type, options);
+    if (this.jid) {
+      return await this.client.sendMessage(this.jid, content, type, options);
+    }
   }
 
   async sendTyping() {
@@ -73,11 +85,8 @@ export default class Image extends WAConnection {
   }
 
   async sendRead() {
-    return await this.client.chatRead(this.jid);
-  }
-
-  async download(location = this.id) {
-    await this.client.downloadAndSaveMediaMessage(this.data, location);
-    return this.id + '.' + this.mimetype.split('/')[1];
+    if (this.jid) {
+      return await this.client.chatRead(this.jid);
+    }
   }
 }

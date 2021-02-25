@@ -12,9 +12,9 @@ import {
 
 export default class Message extends WAConnection {
   jid: string;
-  id: string;
+  id: string | null;
   fromMe: boolean;
-  message: string;
+  message: string | null;
   timestamp: number;
   data: WAMessage;
   client: WAConnection;
@@ -25,13 +25,18 @@ export default class Message extends WAConnection {
   }
 
   _patch(data: WAMessage) {
-    this.id = data.key.id === undefined ? undefined : data.key.id;
-    this.jid = data.key.remoteJid;
-    this.fromMe = data.key.fromMe;
-    this.message =
-      data.message.extendedTextMessage === null
-        ? data.message.conversation
-        : data.message.extendedTextMessage.text;
+    this.id = data.key.id || null;
+    if (data.key.remoteJid) {
+      this.jid = data.key.remoteJid;
+    }
+    if (data.key.fromMe) {
+      this.fromMe = data.key.fromMe;
+    }
+    if (data.message?.extendedTextMessage) {
+      this.message = data.message?.extendedTextMessage?.text || null;
+    } else {
+      this.message = data.message?.conversation || null;
+    }
     this.timestamp =
       typeof data.messageTimestamp === 'object'
         ? data.messageTimestamp.low
@@ -40,18 +45,32 @@ export default class Message extends WAConnection {
   }
 
   async delete() {
-    return await this.deleteMessage(this.jid, {
-      id: this.id,
-      remoteJid: this.jid,
-      fromMe: true,
-    });
+    if (this.jid) {
+      return await this.deleteMessage(this.jid, {
+        id: this.id,
+        remoteJid: this.jid,
+        fromMe: true,
+      });
+    }
+
+    return false;
   }
 
   async reply(text) {
-    var message = await this.sendMessage(this.jid, text, MessageType.text);
-    return new Message(this.client, message);
+    if (this.jid) {
+      return this.sendMessage(this.jid, text, MessageType.text).then((m) => {
+        if (m) {
+          return new Message(this.client, m);
+        }
+
+        return false;
+      });
+    }
+
+    return false;
   }
 
+  //@ts-ignore
   async sendMessage(
     //@ts-ignore
     jid: string,
@@ -64,7 +83,9 @@ export default class Message extends WAConnection {
     type: MessageType,
     options?: MessageOptions,
   ) {
-    return await this.client.sendMessage(this.jid, message, type, options);
+    if (this.jid) {
+      return await this.client.sendMessage(this.jid, message, type, options);
+    }
   }
 
   async sendTyping() {
@@ -72,6 +93,8 @@ export default class Message extends WAConnection {
   }
 
   async sendRead() {
-    return await this.chatRead(this.jid);
+    if (this.jid) {
+      return await this.chatRead(this.jid);
+    }
   }
 }

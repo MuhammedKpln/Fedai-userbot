@@ -30,18 +30,22 @@ addCommand({ pattern: 'help', fromMe: true }, async (client: Message) => {
 
     // Remove regex from commands
     if (/\[(\W*)\]/.test(HANDLERS)) {
+      //@ts-ignore
       HANDLER = HANDLERS.match(/\[(\W*)\]/)[1][0];
     } else {
       HANDLER = '.';
     }
 
-    CMD_HELP.push(
-      '*🛠 ' +
-        Lang['COMMAND'] +
-        ':* ```' +
-        (match.length >= 3 ? HANDLER + match[2] : command.pattern) +
-        (command.desc === '' ? '```\n\n' : '```\n'),
-    );
+    if (match) {
+      CMD_HELP.push(
+        '*🛠 ' +
+          Lang['COMMAND'] +
+          ':* ```' +
+          (match.length >= 3 ? HANDLER + match[2] : command.pattern) +
+          (command.desc === '' ? '```\n\n' : '```\n'),
+      );
+    }
+
     if (command.desc !== '') {
       CMD_HELP.push(
         '*💬 ' +

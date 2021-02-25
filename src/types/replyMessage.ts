@@ -13,7 +13,7 @@ import Message from './message';
 
 export default class ReplyMessage extends WAConnection {
   jid: string;
-  id: string;
+  id: string | null;
   fromMe: boolean;
   timestamp: number;
   url: string;
@@ -22,7 +22,7 @@ export default class ReplyMessage extends WAConnection {
   height: number;
   width: number;
   mediaKey: Uint8Array;
-  message: string;
+  message: string | null;
   data: WAMessage;
   client: WAConnection;
   constructor(client: WAConnection, data: WAMessage) {
@@ -32,13 +32,18 @@ export default class ReplyMessage extends WAConnection {
   }
 
   _patch(data: WAMessage) {
-    this.id = data.key.id === undefined ? undefined : data.key.id;
-    this.jid = data.key.remoteJid;
-    this.fromMe = data.key.fromMe;
-    this.message =
-      data.message.extendedTextMessage === null
-        ? data.message.conversation
-        : data.message.extendedTextMessage.text;
+    this.id = data.key.id || null;
+    if (data.key.remoteJid) {
+      this.jid = data.key.remoteJid;
+    }
+    if (data.key.fromMe) {
+      this.fromMe = data.key.fromMe;
+    }
+    if (data.message?.extendedTextMessage) {
+      this.message = data.message?.extendedTextMessage?.text || null;
+    } else {
+      this.message = data.message?.conversation || null;
+    }
     this.timestamp =
       typeof data.messageTimestamp === 'object'
         ? data.messageTimestamp.low
@@ -47,16 +52,29 @@ export default class ReplyMessage extends WAConnection {
   }
 
   async delete() {
-    return await this.deleteMessage(this.jid, {
-      id: this.id,
-      remoteJid: this.jid,
-      fromMe: true,
-    });
+    if (this.jid) {
+      return await this.deleteMessage(this.jid, {
+        id: this.id,
+        remoteJid: this.jid,
+        fromMe: true,
+      });
+    }
+
+    return false;
   }
 
   async reply(text) {
-    var message = await this.sendMessage(this.jid, text, MessageType.text);
-    return new Message(this.client, message);
+    if (this.jid) {
+      return this.sendMessage(this.jid, text, MessageType.text).then((m) => {
+        if (m) {
+          return new Message(this.client, m);
+        }
+
+        return false;
+      });
+    }
+
+    return false;
   }
 
   async sendMessage(
@@ -83,6 +101,8 @@ export default class ReplyMessage extends WAConnection {
   }
 
   async sendRead() {
-    return await this.chatRead(this.jid);
+    if (this.jid) {
+      return await this.chatRead(this.jid);
+    }
   }
 }
