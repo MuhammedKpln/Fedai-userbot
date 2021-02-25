@@ -46,8 +46,8 @@ function commandCatcher(lastMessage: WAMessage) {
     if (match) {
       console.log(match);
       const client = new Message(bot, lastMessage);
-      command.function(client, match);
       await client.delete();
+      command.function(client, match);
     }
   });
 }

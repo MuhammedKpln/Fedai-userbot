@@ -46,7 +46,7 @@ export default class Message extends WAConnection {
 
   async delete() {
     if (this.jid) {
-      return await this.deleteMessage(this.jid, {
+      return await this.client.deleteMessage(this.jid, {
         id: this.id,
         remoteJid: this.jid,
         fromMe: true,
