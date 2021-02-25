@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
+    "resolveJsonModule": true,
     "importHelpers": true,
     "jsx": "react",
     "alwaysStrict": true,
@@ -16,10 +17,11 @@
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
   },
   "include": [
     "src/**/*",
+    "src/languages/*.json",
     "__tests__/**/*"
   ]
 }
