@@ -19,6 +19,10 @@
     "noImplicitThis": false,
     "strictNullChecks": true,
   },
+  "files": [
+    "src/languages/EN.json",
+    "src/languages/TR.json"
+  ],
   "include": [
     "src/**/*",
     "src/languages/*.json",
