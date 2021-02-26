@@ -26,7 +26,7 @@
 
 ## Getting Started
 
-This project is intended to be used with the latest Active LTS release of [Node.js][nodejs].
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/MuhammedKpln/WhatsApp-Bot)
 
 ### Use as a repository template
 
