@@ -1,0 +1,29 @@
+{
+  "name": "Fedai WhatsApp UserBot",
+  "description": "Fedai project - Makes it easy and fun to use Whatsapp.",
+  "logo": "https://i.imgyukle.com/2021/02/26/L6jcwG.jpg",
+  "keywords": ["whatsapp", "userbot", "fedai"],
+  "repository": "https://github.com/MuhammedKpln/WhatsApp-Bot",
+  "website":   "https://github.com/MuhammedKpln/WhatsApp-Bot",
+  "success_url": "https://github.com/MuhammedKpln/WhatsApp-Bot",
+  "stack": "container",
+  "env": {
+      "SESSION": {
+          "description": "Qr.Js ile oluşturduğunuz özel session kodu.",
+          "required": true
+      },
+      "LANG": {
+          "description": "Bot language. Azerice => az, English => en, Türkçe => tr, Malayalam => ml, Hindi => HI, Indonesia => IN, Español => ES",
+          "required": true,
+          "value": "TR"
+      },
+      "HANDLERS": {
+          "description": "Komutlar için.",
+          "required": true,
+          "value": "^[.!;]"
+      }
+  },
+  "buildpacks": [{
+    "url": "heroku-community/apt"
+    }]
+}
