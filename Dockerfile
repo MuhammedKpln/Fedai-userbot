@@ -6,4 +6,4 @@ ENV TZ=Europe/Istanbul
 RUN npm install
 RUN npm build
 
-CMD ["node", "start"]
+CMD ["npm", "start"]
