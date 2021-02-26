@@ -12,7 +12,7 @@
           "description": "Qr.Js ile oluşturduğunuz özel session kodu.",
           "required": true
       },
-      "LANG": {
+      "BOT_LANG": {
           "description": "Bot language. Azerice => az, English => en, Türkçe => tr, Malayalam => ml, Hindi => HI, Indonesia => IN, Español => ES",
           "required": true,
           "value": "TR"
