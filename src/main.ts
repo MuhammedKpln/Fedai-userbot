@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { SESSION } from './config';
 import { connect } from './core/connection';
+import { loadDatabase } from './core/database';
 import { loadedCommands } from './core/events';
 import { loadLanguage } from './core/language';
 import Message from './types/message';
@@ -42,9 +43,9 @@ function commandCatcher(lastMessage: WAMessage) {
 
     // Check if message contains any command with help of regex.
     let match: RegExpMatchArray | null = message.match(command.pattern);
-
+    // console.log(match);
     if (match) {
-      console.log(match);
+      // console.log(match);
       const client = new Message(bot, lastMessage);
       await client.delete();
       command.function(client, match);
@@ -55,6 +56,7 @@ function commandCatcher(lastMessage: WAMessage) {
 async function init() {
   await bot.connect();
   loadLanguage();
+  loadDatabase();
   loadPlugins();
 
   bot.on('chat-update', (result: WAChatUpdate) => {
