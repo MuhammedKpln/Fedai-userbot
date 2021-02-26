@@ -9,8 +9,9 @@ import {
   WAMessage,
   WATextMessage,
 } from '@adiwajshing/baileys';
+import ReplyMessage from './replyMessage';
 
-export default class Message extends WAConnection {
+export default class Message {
   jid: string;
   id: string | null;
   fromMe: boolean;
@@ -18,8 +19,10 @@ export default class Message extends WAConnection {
   timestamp: number;
   data: WAMessage;
   client: WAConnection;
+  reply_message: ReplyMessage;
+  mention: string[] | null;
+
   constructor(client: WAConnection, data: WAMessage) {
-    super();
     this.client = client;
     this._patch(data);
   }
@@ -37,6 +40,20 @@ export default class Message extends WAConnection {
     } else {
       this.message = data.message?.conversation || null;
     }
+    if (data.message) {
+      if (
+        data.message?.extendedTextMessage &&
+        data.message?.extendedTextMessage?.contextInfo
+      ) {
+        this.reply_message = new ReplyMessage(
+          this.client,
+          data.message.extendedTextMessage.contextInfo,
+        );
+        this.mention =
+          data.message?.extendedTextMessage?.contextInfo.mentionedJid || null;
+      }
+    }
+
     this.timestamp =
       typeof data.messageTimestamp === 'object'
         ? data.messageTimestamp.low
@@ -89,12 +106,12 @@ export default class Message extends WAConnection {
   }
 
   async sendTyping() {
-    return await this.updatePresence(this.jid, Presence.composing);
+    return await this.client.updatePresence(this.jid, Presence.composing);
   }
 
   async sendRead() {
     if (this.jid) {
-      return await this.chatRead(this.jid);
+      return await this.client.chatRead(this.jid);
     }
   }
 }
