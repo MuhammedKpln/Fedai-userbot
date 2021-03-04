@@ -19,7 +19,7 @@
       },
       "HANDLERS": {
           "description": "Komutlar için.",
-          "required": true,
+          "required": false,
           "value": "^[.!;]"
       }
   },

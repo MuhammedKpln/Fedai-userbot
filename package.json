@@ -1,7 +1,7 @@
 {
-  "name": "node-typescript-boilerplate",
-  "version": "0.0.0",
-  "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
+  "name": "fedai-whatsapp-userbot",
+  "version": "0.1.0",
+  "description": "WhatsApp user bot aiming for home users.",
   "devDependencies": {
     "@types/jest": "~26.0.19",
     "@types/node": "~14.14.20",
@@ -28,7 +28,7 @@
     "test:watch": "jest --watch",
     "postinstall": "npm run build"
   },
-  "author": "Jakub Synowiec <github@jakubsynowiec.info>",
+  "author": "Muhammed Kaplan <mmuhammedkaplan0@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
     "@adiwajshing/baileys": "github:adiwajshing/baileys",
