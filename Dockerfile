@@ -5,5 +5,7 @@ WORKDIR /root/fedai/
 ENV TZ=Europe/Istanbul
 RUN npm install
 RUN npm build
-
+RUN mkdir /root/fedai/build/src/languages
+COPY /root/fedai/languages/TR.json /root/fedai/build/src/languages/TR.json
+COPY /root/fedai/languages/EN.json /root/fedai/build/src/languages/EN.json
 CMD ["npm", "start"]
