@@ -1,5 +1,6 @@
 import * as chalk from 'chalk';
 import * as fs from 'fs';
+import * as path from 'path';
 import { LANG } from '../config';
 
 interface ILang {
@@ -9,7 +10,7 @@ interface ILang {
 }
 
 // Load language file
-const languageFile: string = `./languages/${LANG}.json`;
+const languageFile: string = path.resolve('languages', `${LANG}.json`);
 let language: ILang;
 
 export function loadLanguage() {
@@ -23,7 +24,9 @@ export function loadLanguage() {
       ),
     );
 
-    language = JSON.parse(fs.readFileSync('./languages/EN.json').toString());
+    language = JSON.parse(
+      fs.readFileSync(path.resolve('languages', 'EN.json')).toString(),
+    );
   }
 }
 
