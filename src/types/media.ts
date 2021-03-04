@@ -6,7 +6,7 @@ import {
 } from '@adiwajshing/baileys';
 import Message from './message';
 
-export default class MediaMessage extends WAConnection {
+export default class MediaMessage {
   data: WAMessage;
   client: WAConnection;
   jid: string;
@@ -21,7 +21,6 @@ export default class MediaMessage extends WAConnection {
   mediaKey: Uint8Array | null;
 
   constructor(client: WAConnection, data: WAMessage) {
-    super();
     this.client = client;
     if (data) this._patch(data);
   }
@@ -79,7 +78,11 @@ export default class MediaMessage extends WAConnection {
       return await this.client.sendMessage(this.jid, content, type, options);
     }
   }
-
+  async sendTextMessage(message: string) {
+    if (this.jid) {
+      return await this.client.sendMessage(this.jid, message, MessageType.text);
+    }
+  }
   async sendTyping() {
     return await this.client.updatePresence(this.jid, Presence.composing);
   }

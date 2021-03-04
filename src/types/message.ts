@@ -105,6 +105,12 @@ export default class Message {
     }
   }
 
+  async sendTextMessage(message: string) {
+    if (this.jid) {
+      return await this.client.sendMessage(this.jid, message, MessageType.text);
+    }
+  }
+
   async sendTyping() {
     return await this.client.updatePresence(this.jid, Presence.composing);
   }
