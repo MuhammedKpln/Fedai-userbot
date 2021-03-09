@@ -32,14 +32,14 @@
       },
       "_updater": {
         "UPDATER_DESC": "Güncelleme denetler.",
-        "UPDATE": "*Botunuz tamamen güncel!*",
+        "UPDATE": "Botunuz tamamen güncel!",
         "NEW_UPDATE": "*Bot için yeni güncelleme mevcut!*\n\nDeğişiklikler:\n```",
         "UPDATE_NOW_DESC": "Güncelleme yapar.",
-        "UPDATING": "_Güncelleme yapılıyor..._",
-        "INVALID_HEROKU": "*❌ Heroku bilgileriniz yanlış!*",
-        "UPDATED": "*✅ Güncelleme başarılı oldu!*",
-        "UPDATED_LOCAL": "*✅ Güncelleme başarılı oldu!*",
-        "AFTER_UPDATE": "*💬 Fedai Yeniden Başlatılıyor*"
+        "UPDATING": "Güncelleme yapılıyor...",
+        "INVALID_HEROKU": "❌ Heroku bilgileriniz yanlış!",
+        "UPDATED": "✅ Güncelleme başarılı oldu!",
+        "UPDATED_LOCAL": "✅ Güncelleme başarılı oldu!",
+        "AFTER_UPDATE": "💬 Fedai Yeniden Başlatılıyor"
     },
       "profile": {
         "KICKME_DESC": "Yazdığınız gruptan sizi çıkarır.",
