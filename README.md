@@ -2,7 +2,6 @@
 [![TypeScript version][ts-badge]][typescript-4-1]
 [![Node.js version][nodejs-badge]][nodejs]
 [![APLv2][license-badge]][license]
-[![Build Status - Travis][travis-badge]][travis-ci]
 [![Build Status - GitHub Actions][gha-badge]][gha-ci]
 
 ```
@@ -136,8 +135,7 @@ Licensed under the APLv2. See the [LICENSE](https://github.com/muhammedkpln/what
 [ts-badge]: https://img.shields.io/badge/TypeScript-4.1-blue.svg
 [nodejs-badge]: https://img.shields.io/badge/Node.js->=%2014.15-blue.svg
 [nodejs]: https://nodejs.org/dist/latest-v14.x/docs/api/
-
-[gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmuhammedkpln%2Fwhatsapp-bot%2Fbadge&style=flat)](https://actions-badge.atrox.dev/muhammedkpln/whatsapp-bot/goto
+[gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmuhammedkpln%2Fwhatsapp-bot%2Fbadge&style=flat
 [gha-ci]: https://github.com/muhammedkpln/whatsapp-bot/actions
 [typescript]: https://www.typescriptlang.org/
 [typescript-4-1]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html
