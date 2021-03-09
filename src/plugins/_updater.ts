@@ -52,7 +52,7 @@ addCommand({ pattern: 'update$', fromMe: true }, async (message) => {
 
 addCommand({ pattern: 'update now$', fromMe: true }, async (message) => {
   const update = await checkForUpdate();
-
+  await git.fetch();
   if (!HEROKU_API && !HEROKU_APP_NAME) {
     return await message.sendTextMessage(infoMessage(Lang['INVALID_HEROKU']));
   }
@@ -67,7 +67,7 @@ addCommand({ pattern: 'update now$', fromMe: true }, async (message) => {
     }
 
     await git.fetch('upstream', 'master');
-    await git.reset(ResetMode.HARD);
+    await git.reset(ResetMode.HARD, ['FETCH_HEAD']);
 
     const git_url = app.git_url.replace(
       'https://',
