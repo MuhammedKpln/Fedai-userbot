@@ -75,9 +75,9 @@
           "MUST_TEXT": "Lütfen herhangi bir mesajı yanıtlayın"
       },
       "heroku": {
-          "RESTART_DESC": "WhatsAsena'yı yeniden başlatın",
+          "RESTART_DESC": "FEDAI'yı yeniden başlatın",
           "RESTART_MSG": "Yeniden Başlatılıyor...",
-          "SHUTDOWN_DESC": "WhatsAsena'yı kapatır.",
+          "SHUTDOWN_DESC": "FEDAI'yı kapatır.",
           "SHUTDOWN_MSG": "Belki birgün tekrar görüşebiliriz..\nHoşcakal Sahip..\nAsena Kapatılıyor... ⛔",
           "DYNO_DESC": "Heroku dyno kullanımını kontrol edin",
           "DYNO_TOTAL": "Toplam Kota",
@@ -215,7 +215,7 @@
           "INVALID_HEROKU": " Heroku bilgileriniz yanlış!",
           "UPDATED": " Güncelleme başarılı oldu!",
           "UPDATED_LOCAL": " Güncelleme başarılı oldu!",
-          "AFTER_UPDATE": "💬 WhatsAsena Yeniden Başlatılıyor"
+          "AFTER_UPDATE": "💬 FEDAI Yeniden Başlatılıyor"
       },
       "weather": {
           "WEATHER_DESC": "Hava durumu getirir.\n⌨️ Örnek: .weather bakü",
@@ -391,7 +391,7 @@
           "SAVE_USAGE": "Yanıtladığınız mesajı yada resmi nota kaydeder.",
           "REPLY": "Lütfen bir mesaj alıntılayın veya .save <notunuz> şeklinde kullanın.",
           "SUCCESSFULLY_ADDED": "Notunuz başarılı bir şekilde kaydedildi, .notes yazarak notlarınıza ulaşabilirsiniz",
-          "UNSUCCESSFUL": "Notunuzu kaydederken bir hatayla karşılaştık, lütfen tekrar deneyin. Eğer sorun devam ediyorsa lütfen WhatsAsena geliştiricileriyle iletişime geçin.",
+          "UNSUCCESSFUL": "Notunuzu kaydederken bir hatayla karşılaştık, lütfen tekrar deneyin. Eğer sorun devam ediyorsa lütfen FEDAI geliştiricileriyle iletişime geçin.",
           "DELETE_USAGE": "Kaydettiğiniz tüm notlarınızı siler.",
           "SUCCESSFULLY_DELETED": "Tüm notlarınız başarılı bir şekilde silindi."
       },

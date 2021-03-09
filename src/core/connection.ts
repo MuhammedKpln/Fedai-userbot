@@ -8,7 +8,7 @@ export function connect(): WAConnection {
   conn.loadAuthInfo(loadSession(SESSION));
 
   conn.on('connecting', async () => {
-    console.log(`${chalk.green.bold('Whats')}${chalk.blue.bold('Asena')}`);
+    console.log(`${chalk.green.bold('FED')}${chalk.blue.bold('AI')}`);
     console.log(`${chalk.white.bold('Version:')} ${chalk.red.bold(VERSION)}`);
 
     console.log(
@@ -20,5 +20,6 @@ export function connect(): WAConnection {
     });
   });
 
+  conn.logger.level = 'silent';
   return conn;
 }

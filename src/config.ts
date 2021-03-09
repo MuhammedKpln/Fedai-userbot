@@ -3,7 +3,6 @@ import * as fs from 'fs';
 type TLanguages = 'TR' | 'EN';
 
 if (fs.existsSync('../../config.env')) {
-  console.log('qwe');
   require('dotenv').config({ path: '../../config.env' });
 }
 

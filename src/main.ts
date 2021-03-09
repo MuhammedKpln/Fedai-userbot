@@ -26,7 +26,6 @@ async function loadExternalPlugins() {
   console.log(chalk.blueBright.italic('⬇️ Installing external plugins...'));
 
   const plugins = await PluginDB.findAll();
-  console.log('sa', plugins);
 
   plugins.map(async (plugin) => {
     console.log('asasasas', plugin.getDataValue('name'));

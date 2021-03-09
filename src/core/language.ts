@@ -14,10 +14,8 @@ const languageFile: string = path.resolve('languages', `${LANG}.json`);
 let language: ILang;
 
 export function loadLanguage() {
-  console.log(LANG, fs.existsSync(languageFile), __dirname, languageFile);
-
   if (LANG && fs.existsSync(languageFile)) {
-    console.log(chalk.green.bold(`Loading ${LANG} language...`));
+    console.log(chalk.blue.bold(`ℹ️ Loading ${LANG} language...`));
     language = JSON.parse(fs.readFileSync(languageFile).toString());
   } else {
     console.log(
@@ -30,6 +28,8 @@ export function loadLanguage() {
       fs.readFileSync(path.resolve('languages', 'EN.json')).toString(),
     );
   }
+
+  console.log(chalk.green.bold(`✅ Loaded successfully ${LANG} language.`));
 }
 
 export function getString(key: string): string {

@@ -76,7 +76,7 @@
           "MUST_TEXT": "Please reply to any message"
       },
       "heroku": {
-          "RESTART_DESC": "Restart WhatsAsena",
+          "RESTART_DESC": "Restart Fedai",
           "RESTART_MSG": "Restarting...",
           "SHUTDOWN_DESC": "Shutdown WhatsAsena",
           "SHUTDOWN_MSG": "Shutting down ⛔",
