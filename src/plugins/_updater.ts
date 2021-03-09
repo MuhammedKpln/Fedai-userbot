@@ -66,7 +66,6 @@ addCommand({ pattern: 'update now$', fromMe: true }, async (message) => {
       return await message.sendTextMessage(infoMessage(Lang['INVALID_HEROKU']));
     }
 
-    await git.fetch('upstream', 'master');
     await git.reset(ResetMode.HARD, ['FETCH_HEAD']);
 
     const git_url = app.git_url.replace(
