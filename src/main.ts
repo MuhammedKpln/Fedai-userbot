@@ -55,18 +55,20 @@ function commandCatcher(lastMessage: WAMessage) {
         // If user simply just use the command
         message = lastMessage.message.conversation;
       }
-
+      if (lastMessage.message?.extendedTextMessage) {
+        // If user quoted a message
+        if (lastMessage.message.extendedTextMessage.text) {
+          message = lastMessage.message.extendedTextMessage.text;
+        }
+      }
       if (lastMessage.message?.imageMessage?.caption) {
         // If replying a image message with command
         message = lastMessage?.message?.imageMessage.caption;
       }
-      console.log(command.pattern);
-
       // Check if message contains any command with help of regex.
       let match: RegExpMatchArray | null = message.match(command.pattern);
       // console.log(match);
       if (match) {
-        console.log(match);
         const client = new Message(bot, lastMessage);
         await client.delete();
         command.function(client, match);
