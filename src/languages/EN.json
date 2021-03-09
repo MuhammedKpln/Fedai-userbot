@@ -30,6 +30,17 @@
           "REMOVE_USAGE": "You can remove plugins by using: remove <pluginName> command."
 
       },
+      "_updater": {
+        "UPDATER_DESC": "Checks the update.",
+        "UPDATE": "*Your bot is completely up-to-date!*",
+        "NEW_UPDATE": "*New update available for Bot!*\n\nChanges:\n```",
+        "UPDATE_NOW_DESC": "It makes updates.",
+        "UPDATING": "_Updating..._",
+        "INVALID_HEROKU": "*❌ Your Heroku information is wrong!*",
+        "UPDATED": "*✅ Successfully Updated!*",
+        "UPDATED_LOCAL": "*✅ Successfully Updated!*",
+        "AFTER_UPDATE": "*💬 Fedai Restating Automaticly!*"
+    },
       "admin": {
           "BAN_DESC": "Ban someone in the group. Reply to message or tag a person to use command.",
           "IM_NOT_ADMIN": "I am not admin in this group!",

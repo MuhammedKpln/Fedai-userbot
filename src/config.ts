@@ -20,3 +20,5 @@ export const DATABASE_URL: string = process.env.DATABASE_URL || './fedaibot.db';
 export const DEBUG: boolean = process.env.DEBUG
   ? convertToBool(process.env.DEBUG)
   : true;
+export const HEROKU_API: string = process.env.HEROKU_API || '';
+export const HEROKU_APP_NAME: string = process.env.HEROKU_APP_NAME || '';

@@ -17,6 +17,14 @@
           "required": true,
           "value": "TR"
       },
+      "HEROKU_API": {
+        "description": "Needed for update system",
+        "required": true
+      },
+      "HEROKU_APP_NAME": {
+        "description": "Needed for update system",
+        "required": true
+      },
       "HANDLERS": {
           "description": "Komutlar için.",
           "required": false,
