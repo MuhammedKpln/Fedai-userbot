@@ -8,8 +8,9 @@
           "EXAMPLE": "Example",
           "NOT_FOUND": "I couldnt find a command like this",
           "WARN": "Warn",
-          "NEW_COMMAND": "Lütfen .help komutunu kullanin."
-
+          "NEW_COMMAND": "Please use 'help' command.",
+          "ONLY_GROUPS": "This command can only be used inside groups!",
+          "ONLY_PM": "This command can only be used inside private chats!"
       },
       "_plugin": {
           "INSTALL_DESC": "Install external plugins.\n⌨️ Örnek: install https://gist.github.com/MuhammedKpln/60a1a008f1566a674a9bcabdd7b139c5",
@@ -106,6 +107,23 @@
           "DELETE_USAGE": "Deletes all your saved notes.",
           "SUCCESSFULLY_DELETED": "Successfully deleted all your notes."
       },
+      "profile": {
+        "KICKME_DESC": "It kicks you from the group you are using it in.",
+        "KICKME": "Bye bye! I am going 🤠",
+        "PP_DESC": "Makes the profile photo what photo you reply.",
+        "NEED_PHOTO": "Give me a photo!",
+        "PPING": "Setting profile photo...",
+        "BLOCK_DESC": "Block user.",
+        "UNBLOCK_DESC": "Unblock user.",
+        "BLOCKED": "blocked",
+        "UNBLOCKED": "unblocked",
+        "BLOCKED_UPPER": "Blocked!",
+        "UNBLOCKED_UPPER": "Unblocked.",
+        "NEED_USER": "Give me a user!",
+        "JID_DESC": "Giving user's JID.",
+        "JID": "JID address of @{} : {}",
+        "JID_CHAT": "Chat's JID address: {}"
+    },
       "instagram": {
           "NEED_WORD": "Please enter username of any instagram account.",
           "USAGE": "insta <userName>",

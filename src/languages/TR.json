@@ -8,7 +8,9 @@
           "EXAMPLE": "Örnek",
           "NOT_FOUND": "Böyle bir komut bulamadım!",
           "WARN": "Uyarı",
-          "NEW_COMMAND": "Lütfen help komutunu kullanin."
+          "NEW_COMMAND": "Lütfen help komutunu kullanin.",
+          "ONLY_GROUPS": "Bu komut sadece gruplarda çalıştırılabilir.",
+          "ONLY_PM": "Bu komut sadece özel mesajlarda çalıştırılabilir."
       },
       "_plugin": {
           "INSTALL_DESC": "Plugin yükler.\n⌨️ Örnek: install https://gist.github.com/MuhammedKpln/60a1a008f1566a674a9bcabdd7b139c5",
@@ -28,6 +30,23 @@
           "REMOVE_USAGE": "remove <pluginIsmi> komutunu kullanarak modülü kaldirabilirsiniz."
 
       },
+      "profile": {
+        "KICKME_DESC": "Yazdığınız gruptan sizi çıkarır.",
+        "KICKME": "Güle güle. Ben gidiyorum 🤠",
+        "PP_DESC": "Yanıt verdiğiniz fotoğrafı profil fotoğrafınız yapar.",
+        "NEED_PHOTO": "Bana bir fotoğraf ver!",
+        "PPING": "Profil fotoğrafı yapılıyor...",
+        "BLOCK_DESC": "Belirttiğiniz kullanıcıyı engeller.",
+        "UNBLOCK_DESC": "Belirttiğiniz kullanıcının engelini kaldırır.",
+        "BLOCKED": "engellendin",
+        "UNBLOCKED": "engelin kalktı",
+        "BLOCKED_UPPER": "Engellendin!",
+        "UNBLOCKED_UPPER": "Engelini kaldırdım.",
+        "NEED_USER": "Bana bir kullanıcı ver!",
+        "JID_DESC": "Kullanıcının JID verir.",
+        "JID": "@{}, kullanıcısının JID adresi: {}",
+        "JID_CHAT": "Sohbetin JID adresi: {}"
+    },
       "admin": {
           "BAN_DESC": "Gruptan kişi banlar. Yanıt verin ya da komutun yanına kişiyi etiketleyin.",
           "IM_NOT_ADMIN": "Bu grupta admin değilim!",

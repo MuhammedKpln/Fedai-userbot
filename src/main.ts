@@ -7,7 +7,8 @@ import { SESSION } from './config';
 import { connect } from './core/connection';
 import { database, loadDatabase } from './core/database';
 import { loadedCommands } from './core/events';
-import { loadLanguage } from './core/language';
+import { infoMessage } from './core/helpers';
+import { getString, loadLanguage } from './core/language';
 import { PluginDB } from './database/plugin';
 import Message from './types/message';
 
@@ -28,7 +29,6 @@ async function loadExternalPlugins() {
   const plugins = await PluginDB.findAll();
 
   plugins.map(async (plugin) => {
-    console.log('asasasas', plugin.getDataValue('name'));
     if (!fs.existsSync('./plugins/' + plugin.getDataValue('name') + '.js')) {
       console.log(plugin.getDataValue('name'));
       var response = await got(plugin.getDataValue('url'));
@@ -70,6 +70,20 @@ function commandCatcher(lastMessage: WAMessage) {
       if (match) {
         const client = new Message(bot, lastMessage);
         await client.delete();
+
+        // Message is sent from a group
+        if (command.onlyGroup === true && !client.jid.includes('-')) {
+          return client.sendTextMessage(
+            infoMessage(getString('_bot')['ONLY_GROUPS']),
+          );
+        }
+        // Message is not sent from a group
+        if (command.onlyPm === true && client.jid.includes('-')) {
+          return client.sendTextMessage(
+            infoMessage(getString('_bot')['ONLY_PM']),
+          );
+        }
+
         command.function(client, match);
       }
     }
@@ -78,12 +92,12 @@ function commandCatcher(lastMessage: WAMessage) {
 
 async function init() {
   database.sync();
-
   await bot.connect();
   loadLanguage();
   loadDatabase();
   loadPlugins();
   await loadExternalPlugins();
+  database.sync();
 
   bot.on('chat-update', (result: WAChatUpdate) => {
     if (result.messages) {
