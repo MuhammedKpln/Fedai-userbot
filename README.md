@@ -5,74 +5,125 @@
 [![Build Status - Travis][travis-badge]][travis-ci]
 [![Build Status - GitHub Actions][gha-badge]][gha-ci]
 
-# node-typescript-boilerplate
+```
+Asena; Asena UserBot, Fedai yazılımı temsil eden adlardır, yazının devamında birbiri yerine kullanılabilir.
 
-👩🏻‍💻 Developer Ready: A comprehensive template. Works out of the box for most [Node.js][nodejs] projects.
+Fedai - Asena Userbot Açık Kaynaklı geliştirmeye açık bir yazılımdır.
+Yanlış ve amacı dışında kullanımdan doğabilecek tüm sonuçlardan kullanıcı sorumludur.
+Açık kaynaklı bir proje olduğundan isteyen herkes yazılımı kopyalayıp eklemeler çıkarmalar yapabilir,
+kendi özelleştirdiği biçimde kullanabilir. Ayrıca eklenti (plugin) desteği,
+orijinal yazılıma kullanıcıların kendi yazdıkları eklentileri yükleyerek istedikleri
+biçimde kullanmaları özelliğini sağlar.
+Kullanımı tamamen kullanıcının sorumluluğundadır,
+Asena Userbot yalnızca bir altyapıdır. Nasıl sonradan yüklenen programlarla
+yapılan işlerden işletim sistemi sorumlu değilse,
+Fedai da kullanıcıların kullanım amacı ve yönteminden sorumlu değildir.
+Fedai'yı para karşılığı pazarlamak, kullanıma sunmak yahut herhangi bir maddi değere sahip
+birşey ile satışa sunmak kesinlikle yasaktır. Doğabilecek tüm yasal soruşturmalardan
+kullanıcı sorumludur.
 
-🏃🏽 Instant Value: All basic tools included and configured:
-
-- [TypeScript][typescript] [4.1][typescript-4-1]
-- [ESLint][eslint] with some initial rules recommendation
-- [Jest][jest] for fast unit testing and code coverage
-- Type definitions for Node.js and Jest
-- [Prettier][prettier] to enforce consistent code style
-- NPM [scripts](#available-scripts) for common operations
-- Simple example of TypeScript code and unit test
-- .editorconfig for consistent file format
-- Reproducible environments thanks to [Volta][volta]
-- Example configuration for [GitHub Actions][gh-actions] and [Travis CI][travis]
-
-🤲 Free as in speech: available under the APLv2 license.
-
-## Getting Started
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/MuhammedKpln/WhatsApp-Bot)
-
-### Use as a repository template
-
-To start, just click the **[Use template][repo-template-action]** link (or the green button). Now start adding your code in the `src` and unit tests in the `__tests__` directories.
-
-### Clone repository
-
-To clone the repository use the following commands:
-
-```sh
-git clone https://github.com/jsynowiec/node-typescript-boilerplate
-cd node-typescript-boilerplate
-npm install
+Fedai - Asena Userbot is Open Source software open to development.
+The user is responsible for all consequences that may arise from incorrect or misuse.
+Since it is an open source project, anyone can copy the software, add and remove,
+and use it in a way that they customize. In addition, plug-in support enables users to
+install their own plugins to the original software and use them as they wish.
+Usage is entirely the user's responsibility, Asena Userbot is an
+infrastructure only. Just as the operating system is not responsible
+for the work done with the programs that are installed later, Fedai
+is not responsible for the usage purpose and method of the users.
+Marketing Fedai for money, making it available or having any material value
+ıt is strictly forbidden to offer it for sale with anything. All legal investigations that may arise
+the user is responsible.
 ```
 
-### Download latest release
+<div align="center">
+  <img src="https://i.imgyukle.com/2021/02/26/L6jcwG.jpg" width="200" height="200">
+  <h1>🐺 FEDAI Userbot</h1>
+</div>
+<p align="center">
+    FEDAI project - Makes it easy and fun to use Whatsapp.
+    <br>
+        <a href="https://t.me/fedaiplugin">Telegram Channel</a> |
+        <a href="https://t.me/fedaisupport">Telegram Group</a> |
+        <a href="https://t.me/fedaiplugin">New Plugin Channel</a> |
+    <br>
+</p>
 
-Download and unzip current `master` branch or one of tags:
+## 🔎 What is Fedai?
 
-```sh
-wget https://github.com/jsynowiec/node-typescript-boilerplate/archive/master.zip -O node-typescript-boilerplate.zip
-unzip node-typescript-boilerplate.zip && rm node-typescript-boilerplate.zip
+**FEDAI,** is a WhatsApp helper bot written by [Muhammed Kaplan](https://github.com/muhammedkpln).
+
+## Setup
+
+### Simple Method
+
+[![Run on Repl.it](https://repl.it/badge/github/muhammedkpln/fedai-qr)](https://repl.it/@MuhammedKpln/FEDAI-QR)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/muhammedkpln/whatsapp-bot)
+
+### The Hard Method
+
+```js
+$ git clone https://github.com/muhammedkpln/whatsapp-bot.git
+$ cd fedai
+$ npm i
+$ nano Config.env
+// Config.env oluşturun ve düzenleyin.
+// Config.env create and edit.
+$ node bot.js
 ```
 
-## Available Scripts
+##
 
-- `clean` - remove coverage data, Jest cache and transpiled files,
-- `build` - transpile TypeScript to ES6,
-- `build:watch` - interactive watch mode to automatically transpile source files,
-- `lint` - lint source files and tests,
-- `test` - run tests,
-- `test:watch` - interactive watch mode to automatically re-run tests
+## F.A.Q
 
-## Additional Informations
+Answer a few frequently asked questions;
 
-### Why include Volta
+### Can you read my messages?
 
-[Volta][volta]’s toolchain always keeps track of where you are, it makes sure the tools you use always respect the settings of the project you’re working on. This means you don’t have to worry about changing the state of your installed software when switching between projects. For example, it's [used by engineers at LinkedIn][volta-tomdale] to standarize tools and have reproducible development environments.
+This project is open source so all the codes are clear. Neither less nor more; you can look what you want. **We absolutely do not have access to your accounts.**
 
-I recommend to [install][volta-getting-started] Volta and use it to manage your project's toolchain.
+### What about our security?
 
-### Writing tests in JavaScript
+If you are concerned about security, you can install it on your own computer. If you think someone else has captured your data, simply click on **Whatsapp> Three Dots> Whatsapp Web> Logout** from all sessions button.
 
-Writing unit tests in TypeScript can sometimes be troublesome and confusing. Especially when mocking dependencies and using spies.
+### Is it paid?
 
-This is **optional**, but if you want to learn how to write JavaScript tests for TypeScript modules, read the [corresponding wiki page][wiki-js-tests].
+**Of course not.** It will never happen. But you can donate to us. You can reach me via [Telegram](https://t.me/muhammedkplnn) .
+
+##
+
+### FEDAI Features ✨
+
+Here Are All Commands With Description
+[GistHub](https://github.com/MuhammedKpln/WhatsApp-Bot/blob/master/FEATURES.md)
+
+##
+
+### ⚠️ Warning!
+
+```
+Due to Userbot; Your WhatsApp account may be banned.
+This is an open source project, you are responsible for everything you do.
+Absolutely, Fedai executives do not accept responsibility.
+By establishing the Fedai, you are deemed to have accepted these responsibilities.
+```
+
+## Developers
+
+[Muhammed Kaplan](https://github.com/muhammedkpln)
+
+## Thanks To
+
+- [@adiwajshing](https://github.com/adiwajshing) for coded [Baileys](https://github.com/adiwajshing/Baileys)
+
+## License
+
+This project is protected by `Apache lisence v2` license.
+
+### Disclaimer
+
+`WhatsApp` name, its variations and the logo are registered trademarks of Facebook. We have nothing to do with the registered trademark
 
 ## Backers & Sponsors
 
@@ -80,28 +131,21 @@ Support this project by becoming a [sponsor][sponsor].
 
 ## License
 
-Licensed under the APLv2. See the [LICENSE](https://github.com/jsynowiec/node-typescript-boilerplate/blob/master/LICENSE) file for details.
+Licensed under the APLv2. See the [LICENSE](https://github.com/muhammedkpln/whatsapp-bot/blob/master/LICENSE) file for details.
 
 [ts-badge]: https://img.shields.io/badge/TypeScript-4.1-blue.svg
 [nodejs-badge]: https://img.shields.io/badge/Node.js->=%2014.15-blue.svg
 [nodejs]: https://nodejs.org/dist/latest-v14.x/docs/api/
-[travis-badge]: https://travis-ci.org/jsynowiec/node-typescript-boilerplate.svg?branch=master
-[travis-ci]: https://travis-ci.org/jsynowiec/node-typescript-boilerplate
-[gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fjsynowiec%2Fnode-typescript-boilerplate%2Fbadge&style=flat
-[gha-ci]: https://github.com/jsynowiec/node-typescript-boilerplate/actions
+
+[gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmuhammedkpln%2Fwhatsapp-bot%2Fbadge&style=flat)](https://actions-badge.atrox.dev/muhammedkpln/whatsapp-bot/goto
+[gha-ci]: https://github.com/muhammedkpln/whatsapp-bot/actions
 [typescript]: https://www.typescriptlang.org/
 [typescript-4-1]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html
 [license-badge]: https://img.shields.io/badge/license-APLv2-blue.svg
-[license]: https://github.com/jsynowiec/node-typescript-boilerplate/blob/master/LICENSE
+[license]: https://github.com/muhammedkpln/whatsapp-bot/blob/master/LICENSE
 [sponsor-badge]: https://img.shields.io/badge/♥-Sponsor-fc0fb5.svg
-[sponsor]: https://github.com/sponsors/jsynowiec
+[sponsor]: https://github.com/sponsors/muhammedkpln
 [jest]: https://facebook.github.io/jest/
 [eslint]: https://github.com/eslint/eslint
-[wiki-js-tests]: https://github.com/jsynowiec/node-typescript-boilerplate/wiki/Unit-tests-in-plain-JavaScript
 [prettier]: https://prettier.io
-[volta]: https://volta.sh
-[volta-getting-started]: https://docs.volta.sh/guide/getting-started
-[volta-tomdale]: https://twitter.com/tomdale/status/1162017336699838467?s=20
 [gh-actions]: https://github.com/features/actions
-[travis]: https://travis-ci.org
-[repo-template-action]: https://github.com/jsynowiec/node-typescript-boilerplate/generate

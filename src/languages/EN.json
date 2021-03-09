@@ -78,7 +78,7 @@
       "heroku": {
           "RESTART_DESC": "Restart Fedai",
           "RESTART_MSG": "Restarting...",
-          "SHUTDOWN_DESC": "Shutdown WhatsAsena",
+          "SHUTDOWN_DESC": "Shutdown FEDAI",
           "SHUTDOWN_MSG": "Shutting down ⛔",
           "DYNO_DESC": "Check heroku dyno usage",
           "DYNO_TOTAL": "Total Quota",
@@ -217,7 +217,7 @@
           "INVALID_HEROKU": " Your Heroku information is wrong!",
           "UPDATED": " Successfully Updated!",
           "UPDATED_LOCAL": " Successfully Updated!",
-          "AFTER_UPDATE": "💬 WhatsAsena Restating Automaticly!"
+          "AFTER_UPDATE": "💬 FEDAI Restating Automaticly!"
       },
       "weather": {
           "WEATHER_DESC": "Shows the weather.",
@@ -394,7 +394,7 @@
           "SAVE_USAGE": "Reply a message and type .save or just use .save <Your note> without replying",
           "REPLY": "Please provide a note or reply to a message.",
           "SUCCESSFULLY_ADDED": "Successfully added new note, check your notes with .notes.",
-          "UNSUCCESSFUL": "Could not add note, please try again later or contact WhatsAsena developers.",
+          "UNSUCCESSFUL": "Could not add note, please try again later or contact FEDAI developers.",
           "DELETE_USAGE": "Deletes all your saved notes.",
           "SUCCESSFULLY_DELETED": "Successfully deleted all your notes."
       },
