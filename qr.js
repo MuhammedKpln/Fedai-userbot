@@ -12,7 +12,7 @@ async function fedai() {
   conn.regenerateQRIntervalMs = 40000;
 
   conn.on('connecting', async () => {
-    console.log(`${chalk.green.bold('Whats')}${chalk.blue.bold('Asena')}
+    console.log(`${chalk.green.bold('FED')}${chalk.blue.bold('AI')}
     ${chalk.white.italic('FEDAI QR Code receiver.')}
     ${chalk.blue.italic('ℹ️  Connecting to Whatsapp... Please Wait.')}`);
   });
