@@ -10,7 +10,7 @@ const Lang = getString('_updater');
 const heroku = new Heroku({ token: HEROKU_API });
 const git = simpleGit();
 
-async function checkForUpdate(): IUpdate {
+async function checkForUpdate(): Promise<IUpdate> {
   await git.fetch();
 
   const commits = await git.log();
