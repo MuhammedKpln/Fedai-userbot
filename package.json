@@ -25,8 +25,7 @@
     "build:watch": "tsc -w -p tsconfig.release.json",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "postinstall": "npm run build"
+    "test:watch": "jest --watch"
   },
   "author": "Muhammed Kaplan <mmuhammedkaplan0@gmail.com>",
   "license": "Apache-2.0",
@@ -36,6 +35,7 @@
     "dotenv": "^8.2.0",
     "fluent-ffmpeg": "^2.1.2",
     "got": "^11.8.1",
+    "imagemin-webp": "^6.0.0",
     "node-fetch": "^2.6.1",
     "sequelize": "^6.5.0",
     "sqlite3": "^5.0.2",
