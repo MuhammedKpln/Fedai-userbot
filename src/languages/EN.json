@@ -124,20 +124,25 @@
         "JID": "JID address of @{} : {}",
         "JID_CHAT": "Chat's JID address: {}"
     },
-      "instagram": {
-          "NEED_WORD": "Please enter username of any instagram account.",
-          "USAGE": "insta <userName>",
-          "DESC": "Fetches user informations from instagram",
-          "LOADING": "Fetching user data.. please wait.",
-          "USERNAME": "Username",
-          "NAME": "Name",
-          "BIO": "Biography",
-          "FOLLOWERS": "Followers",
-          "FOLLOWS": "Follows",
-          "ACCOUNT": "Account privacy",
-          "PUBLIC": "Public",
-          "HIDDEN": "Hidden",
-          "NOT_FOUND":"User not found: "
-      }
+    "instagram": {
+        "NEED_WORD": "Please enter username of any instagram account.",
+        "USAGE": "insta <userName>",
+        "DESC": "Fetches user informations from instagram",
+        "LOADING": "Fetching user data.. please wait.",
+        "USERNAME": "Username",
+        "NAME": "Name",
+        "BIO": "Biography",
+        "FOLLOWERS": "Followers",
+        "FOLLOWS": "Follows",
+        "ACCOUNT": "Account privacy",
+        "PUBLIC": "Public",
+        "HIDDEN": "Hidden",
+        "NOT_FOUND":"User not found: "
+    },
+    "tts": {
+      "TTS_DESC": "Converts text to voice.",
+      "TTS_ERROR": "Could not convert text to voice!",
+      "NEED_TEXT": "Need text for converting to audio!"
+    }
   }
 }

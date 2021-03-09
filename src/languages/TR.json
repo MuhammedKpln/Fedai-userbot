@@ -127,6 +127,11 @@
           "PUBLIC": "Herkese açık",
           "HIDDEN": "Gizli",
           "NOT_FOUND": "Kullanıcı bulunmadı: "
+      },
+      "tts": {
+        "TTS_DESC": "Yazıyı sese çevirir.",
+        "TTS_ERROR": "Hata, yazdığınız cümlenin konuşma sentezi yapılamadı!",
+        "NEED_TEXT": "Lütfen yazıyı sese çevirmem için bana gerekli yazıyı verin."
       }
   }
 }
