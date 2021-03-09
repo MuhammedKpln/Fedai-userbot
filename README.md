@@ -5,9 +5,9 @@
 [![Build Status - GitHub Actions][gha-badge]][gha-ci]
 
 ```
-Asena; Asena UserBot, Fedai yazılımı temsil eden adlardır, yazının devamında birbiri yerine kullanılabilir.
+Fedau; Fedai UserBot, Fedai yazılımı temsil eden adlardır, yazının devamında birbiri yerine kullanılabilir.
 
-Fedai - Asena Userbot Açık Kaynaklı geliştirmeye açık bir yazılımdır.
+Fedai - Userbot Açık Kaynaklı geliştirmeye açık bir yazılımdır.
 Yanlış ve amacı dışında kullanımdan doğabilecek tüm sonuçlardan kullanıcı sorumludur.
 Açık kaynaklı bir proje olduğundan isteyen herkes yazılımı kopyalayıp eklemeler çıkarmalar yapabilir,
 kendi özelleştirdiği biçimde kullanabilir. Ayrıca eklenti (plugin) desteği,
@@ -21,7 +21,7 @@ Fedai'yı para karşılığı pazarlamak, kullanıma sunmak yahut herhangi bir m
 birşey ile satışa sunmak kesinlikle yasaktır. Doğabilecek tüm yasal soruşturmalardan
 kullanıcı sorumludur.
 
-Fedai - Asena Userbot is Open Source software open to development.
+Fedai - Userbot is Open Source software open to development.
 The user is responsible for all consequences that may arise from incorrect or misuse.
 Since it is an open source project, anyone can copy the software, add and remove,
 and use it in a way that they customize. In addition, plug-in support enables users to
