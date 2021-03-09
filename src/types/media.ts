@@ -1,18 +1,7 @@
-import {
-  MessageType,
-  Presence,
-  WAConnection,
-  WAMediaUpload,
-  WAMessage,
-} from '@adiwajshing/baileys';
-import Message from './message';
+import { WAConnection, WAMessage } from '@adiwajshing/baileys';
+import { BaseMessage } from './base';
 
-export default class MediaMessage {
-  data: WAMessage;
-  client: WAConnection;
-  jid: string;
-  id: string | null;
-  fromMe: boolean;
+export default class MediaMessage extends BaseMessage {
   timestamp: number | null;
   url: string | null;
   caption: string | null;
@@ -22,6 +11,7 @@ export default class MediaMessage {
   mediaKey: Uint8Array | null;
 
   constructor(client: WAConnection, data: WAMessage) {
+    super();
     this.client = client;
     if (data) this._patch(data);
   }
@@ -46,58 +36,5 @@ export default class MediaMessage {
     this.width = data.message?.imageMessage?.width || null;
     this.mediaKey = data.message?.imageMessage?.mediaKey || null;
     this.data = data;
-  }
-
-  async delete() {
-    if (this.jid) {
-      return await this.client.deleteMessage(this.jid, {
-        id: this.id,
-        remoteJid: this.jid,
-        fromMe: true,
-      });
-    }
-
-    return false;
-  }
-
-  async reply(text) {
-    if (this.jid) {
-      var message = await this.client.sendMessage(
-        this.jid,
-        text,
-        MessageType.text,
-        { quoted: this.data },
-      );
-      return new Message(this.client, message);
-    }
-
-    return false;
-  }
-  //@ts-ignore
-  async sendMessage(content, type, options) {
-    if (this.jid) {
-      return await this.client.sendMessage(this.jid, content, type, options);
-    }
-  }
-  async sendTextMessage(message: string) {
-    if (this.jid) {
-      return await this.client.sendMessage(this.jid, message, MessageType.text);
-    }
-  }
-
-  async sendImageMessage(image: Buffer | WAMediaUpload) {
-    if (this.jid) {
-      return await this.client.sendMessage(this.jid, image, MessageType.image);
-    }
-  }
-
-  async sendTyping() {
-    return await this.client.updatePresence(this.jid, Presence.composing);
-  }
-
-  async sendRead() {
-    if (this.jid) {
-      return await this.client.chatRead(this.jid);
-    }
   }
 }

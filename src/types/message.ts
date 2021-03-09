@@ -1,28 +1,15 @@
-import {
-  MessageOptions,
-  MessageType,
-  Presence,
-  WAConnection,
-  WAContactMessage,
-  WALocationMessage,
-  WAMediaUpload,
-  WAMessage,
-  WATextMessage,
-} from '@adiwajshing/baileys';
+import { WAConnection, WAMessage } from '@adiwajshing/baileys';
+import { BaseMessage } from './base';
 import ReplyMessage from './replyMessage';
 
-export default class Message {
-  jid: string;
-  id: string | null;
-  fromMe: boolean;
+export default class Message extends BaseMessage {
   message: string | null;
   timestamp: number;
-  data: WAMessage;
-  client: WAConnection;
   reply_message: ReplyMessage;
   mention: string[] | null;
 
   constructor(client: WAConnection, data: WAMessage) {
+    super();
     this.client = client;
     this._patch(data);
   }
@@ -59,71 +46,5 @@ export default class Message {
         ? data.messageTimestamp.low
         : data.messageTimestamp;
     this.data = data;
-  }
-
-  async delete() {
-    if (this.jid) {
-      return await this.client.deleteMessage(this.jid, {
-        id: this.id,
-        remoteJid: this.jid,
-        fromMe: true,
-      });
-    }
-
-    return false;
-  }
-
-  async reply(text) {
-    if (this.jid) {
-      return this.sendMessage(this.jid, text, MessageType.text).then((m) => {
-        if (m) {
-          return new Message(this.client, m);
-        }
-
-        return false;
-      });
-    }
-
-    return false;
-  }
-
-  //@ts-ignore
-  async sendMessage(
-    //@ts-ignore
-    jid: string,
-    message:
-      | string
-      | WATextMessage
-      | WALocationMessage
-      | WAContactMessage
-      | WAMediaUpload,
-    type: MessageType,
-    options?: MessageOptions,
-  ) {
-    if (this.jid) {
-      return await this.client.sendMessage(this.jid, message, type, options);
-    }
-  }
-
-  async sendTextMessage(message: string) {
-    if (this.jid) {
-      return await this.client.sendMessage(this.jid, message, MessageType.text);
-    }
-  }
-
-  async sendImageMessage(image: Buffer | WAMediaUpload) {
-    if (this.jid) {
-      return await this.client.sendMessage(this.jid, image, MessageType.image);
-    }
-  }
-
-  async sendTyping() {
-    return await this.client.updatePresence(this.jid, Presence.composing);
-  }
-
-  async sendRead() {
-    if (this.jid) {
-      return await this.client.chatRead(this.jid);
-    }
   }
 }
