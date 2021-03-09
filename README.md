@@ -34,7 +34,6 @@ Marketing Fedai for money, making it available or having any material value
 ıt is strictly forbidden to offer it for sale with anything. All legal investigations that may arise
 the user is responsible.
 ```
-
 <div align="center">
   <img src="https://i.imgyukle.com/2021/02/26/L6jcwG.jpg" width="200" height="200">
   <h1>🐺 FEDAI Userbot</h1>
