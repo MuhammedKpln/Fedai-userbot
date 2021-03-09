@@ -97,7 +97,7 @@
           "DOWNLOADING": "Medya indiriliyor & sticker yapılıyor..."
       },
       "spammer": {
-          "SPAM_DESC": "Siz durdurana kadar spam yapar.\n⌨️ Örnek: .spam test",
+          "SPAM_DESC": "Siz durdurana kadar spam yapar.\n⌨️ Örnek: spam test",
           "NEED_WORD": "Kelime Girmelisin!",
           "STOP_SPAMDESC": "Spam komutunu durdurur.",
           "STOP_SPAM": " Spam Başarıyla Durduruldu! Lütfen biraz bekleyin."

@@ -91,7 +91,7 @@
           "AFTER_UPDATE": "💬 FEDAI Restating Automaticly!"
       },
       "spammer": {
-          "SPAM_DESC": "It spam until you stop it.\n⌨️ Example: .spam test",
+          "SPAM_DESC": "It spam until you stop it.\n⌨️ Example: spam test",
           "NEED_WORD": "Need Some Words!",
           "STOP_SPAMDESC": "Stops spam command.",
           "STOP_SPAM": " Spam successfully stopped! Please wait a moment."
