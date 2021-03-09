@@ -39,6 +39,8 @@ addCommand(
   { pattern: 'voicy', desc: Lang['USAGE'], fromMe: true },
   async (message) => {
     try {
+      console.log('qweqwe');
+      console.log(message.reply_message);
       if (message.reply_message) {
         if (
           !message.reply_message.text &&

@@ -11,7 +11,7 @@
           "NEW_COMMAND": "Lütfen .help komutunu kullanin."
       },
       "_plugin": {
-          "INSTALL_DESC": "Plugin yükler.\n⌨️ Örnek: .install https://gist.github.com/phaticusthiccy/d41dd4428faf34ab8cfd4c392501c62e",
+          "INSTALL_DESC": "Plugin yükler.\n⌨️ Örnek: install https://gist.github.com/MuhammedKpln/60a1a008f1566a674a9bcabdd7b139c5",
           "NEED_URL": "Lütfen bir URL giriniz! Örnek:",
           "INVALID_URL": "Lütfen bir geçerli URL giriniz!",
           "INVALID_PLUGIN": " Plugininiz hatalı!\nHata:",
