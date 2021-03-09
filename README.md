@@ -58,12 +58,12 @@ the user is responsible.
 
 [![Run on Repl.it](https://repl.it/badge/github/muhammedkpln/fedai-qr)](https://repl.it/@MuhammedKpln/FEDAI-QR)
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/muhammedkpln/whatsapp-bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/muhammedkpln/fedai-userbot)
 
 ### The Hard Method
 
 ```js
-$ git clone https://github.com/muhammedkpln/whatsapp-bot.git
+$ git clone https://github.com/muhammedkpln/fedai-userbot.git
 $ cd fedai
 $ npm i
 $ nano Config.env
@@ -95,7 +95,7 @@ If you are concerned about security, you can install it on your own computer. If
 ### FEDAI Features ✨
 
 Here Are All Commands With Description
-[GistHub](https://github.com/MuhammedKpln/WhatsApp-Bot/blob/master/FEATURES.md)
+[GistHub](https://github.com/MuhammedKpln/fedai-userbot/blob/master/FEATURES.md)
 
 ##
 
@@ -130,17 +130,17 @@ Support this project by becoming a [sponsor][sponsor].
 
 ## License
 
-Licensed under the APLv2. See the [LICENSE](https://github.com/muhammedkpln/whatsapp-bot/blob/master/LICENSE) file for details.
+Licensed under the APLv2. See the [LICENSE](https://github.com/muhammedkpln/fedai-userbot/blob/master/LICENSE) file for details.
 
 [ts-badge]: https://img.shields.io/badge/TypeScript-4.1-blue.svg
 [nodejs-badge]: https://img.shields.io/badge/Node.js->=%2014.15-blue.svg
 [nodejs]: https://nodejs.org/dist/latest-v14.x/docs/api/
-[gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmuhammedkpln%2Fwhatsapp-bot%2Fbadge&style=flat
-[gha-ci]: https://github.com/muhammedkpln/whatsapp-bot/actions
+[gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmuhammedkpln%2Ffedai-userbot%2Fbadge&style=flat
+[gha-ci]: https://github.com/muhammedkpln/fedai-userbot/actions
 [typescript]: https://www.typescriptlang.org/
 [typescript-4-1]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html
 [license-badge]: https://img.shields.io/badge/license-APLv2-blue.svg
-[license]: https://github.com/muhammedkpln/whatsapp-bot/blob/master/LICENSE
+[license]: https://github.com/muhammedkpln/fedai-userbot/blob/master/LICENSE
 [sponsor-badge]: https://img.shields.io/badge/♥-Sponsor-fc0fb5.svg
 [sponsor]: https://github.com/sponsors/muhammedkpln
 [jest]: https://facebook.github.io/jest/
