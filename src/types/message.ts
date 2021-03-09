@@ -111,6 +111,12 @@ export default class Message {
     }
   }
 
+  async sendImageMessage(image: Buffer | WAMediaUpload) {
+    if (this.jid) {
+      return await this.client.sendMessage(this.jid, image, MessageType.image);
+    }
+  }
+
   async sendTyping() {
     return await this.client.updatePresence(this.jid, Presence.composing);
   }

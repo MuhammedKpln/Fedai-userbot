@@ -2,6 +2,7 @@ import {
   MessageType,
   Presence,
   WAConnection,
+  WAMediaUpload,
   WAMessage,
 } from '@adiwajshing/baileys';
 import Message from './message';
@@ -83,6 +84,13 @@ export default class MediaMessage {
       return await this.client.sendMessage(this.jid, message, MessageType.text);
     }
   }
+
+  async sendImageMessage(image: Buffer | WAMediaUpload) {
+    if (this.jid) {
+      return await this.client.sendMessage(this.jid, image, MessageType.image);
+    }
+  }
+
   async sendTyping() {
     return await this.client.updatePresence(this.jid, Presence.composing);
   }
