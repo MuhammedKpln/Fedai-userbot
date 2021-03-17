@@ -1,4 +1,4 @@
-import { WAChatUpdate, WAMessage } from '@adiwajshing/baileys';
+import { Presence, WAChatUpdate, WAMessage } from '@adiwajshing/baileys';
 import * as chalk from 'chalk';
 import * as fs from 'fs';
 import got from 'got';
@@ -48,6 +48,10 @@ async function loadExternalPlugins() {
 function commandCatcher(lastMessage: WAMessage) {
   loadedCommands.map(async (command) => {
     let message: string = '';
+
+    if (lastMessage.key.remoteJid) {
+      await bot.updatePresence(lastMessage.key.remoteJid, Presence.unavailable);
+    }
 
     if (lastMessage.key.fromMe) {
       if (lastMessage.message?.conversation) {
