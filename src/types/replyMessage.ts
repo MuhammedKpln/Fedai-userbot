@@ -48,6 +48,7 @@ export default class ReplyMessage {
       this.height = data.quotedMessage?.imageMessage?.height || null;
       this.width = data.quotedMessage?.imageMessage?.width || null;
       this.mediaKey = data.quotedMessage?.imageMessage?.mediaKey || null;
+      this.image = true;
     }
     if (data.quotedMessage && data.quotedMessage.videoMessage) {
       this.caption = data.quotedMessage?.videoMessage?.caption || null;
@@ -57,6 +58,7 @@ export default class ReplyMessage {
       this.height = data.quotedMessage?.videoMessage?.height || null;
       this.width = data.quotedMessage?.videoMessage?.width || null;
       this.mediaKey = data.quotedMessage?.videoMessage?.mediaKey || null;
+      this.video = true;
     } else if (data.quotedMessage && data.quotedMessage.conversation) {
       this.message = data.quotedMessage.conversation;
       this.text = data.quotedMessage.conversation;

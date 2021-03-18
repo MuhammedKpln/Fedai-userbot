@@ -94,7 +94,8 @@
       "sticker": {
           "STICKER_DESC": "Yanıt verdiğiniz fotoğraf veya videoyu sticker yapın.",
           "NEED_REPLY": "Bir fotoğraf veya videoya yanıt verin!",
-          "DOWNLOADING": "Medya indiriliyor & sticker yapılıyor..."
+          "DOWNLOADING": "Medya indiriliyor & sticker yapılıyor...",
+          "ONLY_IMAGE": "Lütfen alıntıladığınız mesajın resim olduğunu kontrol edin.."
       },
       "spammer": {
           "SPAM_DESC": "Siz durdurana kadar spam yapar.\n⌨️ Örnek: spam test",

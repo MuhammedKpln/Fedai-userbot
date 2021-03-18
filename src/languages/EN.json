@@ -77,7 +77,8 @@
       "sticker": {
           "STICKER_DESC": "It converts your replied photo or video to sticker.",
           "NEED_REPLY": "Reply to a photo or video!",
-          "DOWNLOADING": "Media downloading & converting to sticker..."
+          "DOWNLOADING": "Media downloading & converting to sticker...",
+          "ONLY_IMAGE": "Please reply to a image, video is not allowed."
       },
       "updater": {
           "UPDATER_DESC": "Checks the update.",
