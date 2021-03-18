@@ -1,9 +1,14 @@
-import { Presence, WAChatUpdate, WAMessage } from '@adiwajshing/baileys';
+import {
+  MessageType,
+  Presence,
+  WAChatUpdate,
+  WAMessage,
+} from '@adiwajshing/baileys';
 import * as chalk from 'chalk';
 import * as fs from 'fs';
 import got from 'got';
 import * as path from 'path';
-import { SESSION } from './config';
+import { LANG, SESSION } from './config';
 import { connect } from './core/connection';
 import { database, loadDatabase } from './core/database';
 import { loadedCommands } from './core/events';
@@ -88,7 +93,11 @@ function commandCatcher(lastMessage: WAMessage) {
           );
         }
 
-        command.function(client, match);
+        try {
+          command.function(client, match);
+        } catch (err) {
+          await sendLogToUser(err);
+        }
       }
     }
   });
@@ -106,9 +115,42 @@ async function init() {
   bot.on('chat-update', (result: WAChatUpdate) => {
     if (result.messages) {
       const lastMessage: WAMessage = result.messages.all()[0];
+
       commandCatcher(lastMessage);
     }
   });
+}
+
+async function sendLogToUser(err: Error) {
+  if (LANG === 'TR') {
+    await bot.sendMessage(
+      bot.user.jid,
+      '*-- HATA RAPORU [FEDAI] --*' +
+        '\n*FEDAI bir hata gerçekleşti!*' +
+        '\n_Bu hata logunda numaranız veya karşı bir tarafın numarası olabilir. Lütfen buna dikkat edin!_' +
+        '\n_Yardım için Telegram grubumuza yazabilirsiniz._' +
+        '\n_Bu mesaj sizin numaranıza (kaydedilen mesajlar) gitmiş olmalıdır._' +
+        '*Gerçekleşen Hata:* ```' +
+        err +
+        '```\n\n',
+      MessageType.text,
+      { detectLinks: false },
+    );
+  } else if (LANG === 'EN') {
+    await bot.sendMessage(
+      bot.user.jid,
+      '*-- ERROR REPORT [WHATSASENA] --*' +
+        '\n*WhatsAsena an error has occurred!*' +
+        '\n_This error log may include your number or the number of an opponent. Please be careful with it!_' +
+        '\n_You can write to our Telegram group for help._' +
+        '\n_This message should have gone to your number (saved messages)._\n\n' +
+        '*Error:* ```' +
+        err +
+        '```\n\n',
+      MessageType.text,
+      { detectLinks: false },
+    );
+  }
 }
 
 if (!SESSION) {
