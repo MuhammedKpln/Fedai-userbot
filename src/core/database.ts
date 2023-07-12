@@ -1,11 +1,11 @@
-import * as chalk from 'chalk';
+// import chalk from 'chalk';
 import { Sequelize } from 'sequelize';
 import { DATABASE_URL, DEBUG } from '../config';
 
 export let database: Sequelize = loadDatabase();
 
 export function loadDatabase(): Sequelize {
-  console.log(chalk.blue('ℹ️ Loading database...'));
+  // console.log(chalk.blue('ℹ️ Loading database...'));
   if (DEBUG) {
     database = new Sequelize({
       dialect: 'sqlite',
@@ -19,7 +19,7 @@ export function loadDatabase(): Sequelize {
     });
   }
 
-  console.log(chalk.green.bold('✅ Database loaded!'));
+  // console.log(chalk.green.bold('✅ Database loaded!'));
 
   return database;
 }

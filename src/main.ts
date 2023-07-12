@@ -1,61 +1,65 @@
-import {
-  MessageType,
-  Presence,
-  WAChatUpdate,
-  WAMessage,
-} from '@adiwajshing/baileys';
-import * as chalk from 'chalk';
-import * as fs from 'fs';
-import got from 'got';
-import * as path from 'path';
-import { LANG, SESSION } from './config';
-import { connect } from './core/connection';
-import { database, loadDatabase } from './core/database';
-import { loadedCommands } from './core/events';
-import { infoMessage } from './core/helpers';
-import { getString, loadLanguage } from './core/language';
-import { PluginDB } from './database/plugin';
-import Message from './types/message';
+import { WAMessage, WASocket } from "@whiskeysockets/baileys";
+import dotenv from "dotenv";
+import fs from "node:fs";
+import path from "node:path";
 
-const bot = connect();
+import { LANG } from "./config";
+import { startSocket } from "./core/connection";
+import { database, loadDatabase } from "./core/database";
+import { loadedCommands } from "./core/events";
+import { infoMessage } from "./core/helpers";
+import { getString, loadLanguage } from "./core/language";
+import { Logger } from "./core/logger";
+import Message from "./types/message";
+
+dotenv.config({
+  path: "../../config.env",
+});
+
+let bot: WASocket;
+const logger = Logger.child({ module: "main" });
 
 function loadPlugins() {
-  fs.readdirSync('./plugins').forEach((plugin) => {
+  logger.info("Loading core plugins..");
+
+  fs.readdirSync("./plugins").forEach((plugin) => {
     const pluginExt = path.extname(plugin).toLowerCase();
-    if (pluginExt == '.js') {
-      require('./plugins/' + plugin);
+    if (pluginExt == ".js") {
+      require("./plugins/" + plugin);
     }
   });
 }
 
 async function loadExternalPlugins() {
-  console.log(chalk.blueBright.italic('⬇️ Installing external plugins...'));
+  logger.info("Installing external plugins..");
 
-  const plugins = await PluginDB.findAll();
+  // const plugins = await PluginDB.findAll();
 
-  plugins.map(async (plugin) => {
-    if (!fs.existsSync('./plugins/' + plugin.getDataValue('name') + '.js')) {
-      console.log(plugin.getDataValue('name'));
-      var response = await got(plugin.getDataValue('url'));
-      if (response.statusCode == 200) {
-        fs.writeFileSync(
-          './plugins/' + plugin.getDataValue('name') + '.js',
-          response.body,
-        );
-        require('./plugins/' + plugin.getDataValue('name') + '.js');
-      }
-    }
-  });
+  // plugins.map(async (plugin) => {
+  //   if (!fs.existsSync("./plugins/" + plugin.getDataValue("name") + ".js")) {
+  //     console.log(plugin.getDataValue("name"));
+  //     var response = await got(plugin.getDataValue("url"));
+  //     if (response.statusCode == 200) {
+  //       fs.writeFileSync(
+  //         "./plugins/" + plugin.getDataValue("name") + ".js",
+  //         response.body,
+  //       );
+  //       require("./plugins/" + plugin.getDataValue("name") + ".js");
+  //     }
+  //   }
+  // });
 
-  console.log(chalk.green.bold('✅ Plugins installed!'));
+  // logger.info("Plugins installed!");
+
+  // console.log(chalk.green.bold('✅ Plugins installed!'));
 }
 
 function commandCatcher(lastMessage: WAMessage) {
   loadedCommands.map(async (command) => {
-    let message: string = '';
+    let message: string = "";
 
     if (lastMessage.key.remoteJid) {
-      await bot.updatePresence(lastMessage.key.remoteJid, Presence.unavailable);
+      await bot.sendPresenceUpdate("unavailable", lastMessage.key.remoteJid);
     }
 
     if (lastMessage.key.fromMe) {
@@ -78,25 +82,24 @@ function commandCatcher(lastMessage: WAMessage) {
       // console.log(match);
       if (match) {
         const client = new Message(bot, lastMessage);
-        await client.delete();
 
         // Message is sent from a group
-        if (command.onlyGroup === true && !client.jid.includes('-')) {
-          return client.sendTextMessage(
-            infoMessage(getString('_bot')['ONLY_GROUPS']),
-          );
+        if (command.onlyGroup === true && !client.jid.includes("-")) {
+          return client.sendMessage({
+            text: infoMessage(getString("_bot")["ONLY_GROUPS"]),
+          });
         }
         // Message is not sent from a group
-        if (command.onlyPm === true && client.jid.includes('-')) {
-          return client.sendTextMessage(
-            infoMessage(getString('_bot')['ONLY_PM']),
-          );
+        if (command.onlyPm === true && client.jid.includes("-")) {
+          return client.sendMessage({
+            text: infoMessage(getString("_bot")["ONLY_PM"]),
+          });
         }
 
         try {
           command.function(client, match);
         } catch (err) {
-          await sendLogToUser(err);
+          await sendLogToUser(err, lastMessage.key.remoteJid);
         }
       }
     }
@@ -104,61 +107,70 @@ function commandCatcher(lastMessage: WAMessage) {
 }
 
 async function init() {
-  database.sync();
-  await bot.connect();
+  bot = await startSocket();
+  await database.sync();
   loadLanguage();
   loadDatabase();
   loadPlugins();
   await loadExternalPlugins();
   database.sync();
 
-  bot.on('chat-update', (result: WAChatUpdate) => {
-    if (result.messages) {
-      const lastMessage: WAMessage = result.messages.all()[0];
+  bot.ev.process((event) => {
+    const MESSAGE_UPSERT = event["messages.upsert"];
 
-      commandCatcher(lastMessage);
+    if (MESSAGE_UPSERT) {
+      if (MESSAGE_UPSERT.type == "notify") {
+        for (const msg of MESSAGE_UPSERT.messages) {
+          commandCatcher(msg);
+          logger.info("Process commands");
+        }
+      }
     }
   });
 }
 
-async function sendLogToUser(err: Error) {
-  if (LANG === 'TR') {
-    await bot.sendMessage(
-      bot.user.jid,
-      '*-- HATA RAPORU [FEDAI] --*' +
-        '\n*FEDAI bir hata gerçekleşti!*' +
-        '\n_Bu hata logunda numaranız veya karşı bir tarafın numarası olabilir. Lütfen buna dikkat edin!_' +
-        '\n_Yardım için Telegram grubumuza yazabilirsiniz._' +
-        '\n_Bu mesaj sizin numaranıza (kaydedilen mesajlar) gitmiş olmalıdır._' +
-        '*Gerçekleşen Hata:* ```' +
+async function sendLogToUser(
+  err: unknown,
+  remoteJid: string | null | undefined,
+) {
+  if (!remoteJid) {
+    return;
+  }
+
+  if (LANG === "TR") {
+    await bot.sendMessage(remoteJid, {
+      text:
+        "*-- HATA RAPORU [FEDAI] --*" +
+        "\n*FEDAI bir hata gerçekleşti!*" +
+        "\n_Bu hata logunda numaranız veya karşı bir tarafın numarası olabilir. Lütfen buna dikkat edin!_" +
+        "\n_Yardım için Telegram grubumuza yazabilirsiniz._" +
+        "\n_Bu mesaj sizin numaranıza (kaydedilen mesajlar) gitmiş olmalıdır._" +
+        "*Gerçekleşen Hata:* ```" +
         err +
-        '```\n\n',
-      MessageType.text,
-      { detectLinks: false },
-    );
-  } else if (LANG === 'EN') {
-    await bot.sendMessage(
-      bot.user.jid,
-      '*-- ERROR REPORT [WHATSASENA] --*' +
-        '\n*WhatsAsena an error has occurred!*' +
-        '\n_This error log may include your number or the number of an opponent. Please be careful with it!_' +
-        '\n_You can write to our Telegram group for help._' +
-        '\n_This message should have gone to your number (saved messages)._\n\n' +
-        '*Error:* ```' +
+        "```\n\n",
+    });
+  } else if (LANG === "EN") {
+    await bot.sendMessage(remoteJid, {
+      text:
+        "*-- HATA RAPORU [FEDAI] --*" +
+        "\n*FEDAI bir hata gerçekleşti!*" +
+        "\n_Bu hata logunda numaranız veya karşı bir tarafın numarası olabilir. Lütfen buna dikkat edin!_" +
+        "\n_Yardım için Telegram grubumuza yazabilirsiniz._" +
+        "\n_Bu mesaj sizin numaranıza (kaydedilen mesajlar) gitmiş olmalıdır._" +
+        "*Gerçekleşen Hata:* ```" +
         err +
-        '```\n\n',
-      MessageType.text,
-      { detectLinks: false },
-    );
+        "```\n\n",
+    });
   }
 }
 
-if (!SESSION) {
-  console.log(
-    chalk.red.bold(
-      'We could not found session string, please setup your environment variables.',
-    ),
-  );
-} else {
-  init();
-}
+// if (!SESSION) {
+
+//   console.log(
+//     logger.error(
+//       'We could not found session string, please setup your environment variables.',
+//     ),
+//   );
+// } else {
+init();
+// }

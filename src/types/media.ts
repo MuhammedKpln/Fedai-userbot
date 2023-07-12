@@ -1,8 +1,8 @@
-import { WAConnection, WAMessage } from '@adiwajshing/baileys';
-import { BaseMessage } from './base';
+import { WAMessage, WASocket } from "@whiskeysockets/baileys";
+import { BaseMessage } from "./base";
 
 export default class MediaMessage extends BaseMessage {
-  timestamp: number | null;
+  timestamp: number | Long.Long | null | undefined;
   url: string | null;
   caption: string | null;
   mimetype: string | null;
@@ -10,7 +10,7 @@ export default class MediaMessage extends BaseMessage {
   width: number | null;
   mediaKey: Uint8Array | null;
 
-  constructor(client: WAConnection, data: WAMessage) {
+  constructor(client: WASocket, data: WAMessage) {
     super();
     this.client = client;
     if (data) this._patch(data);
@@ -27,10 +27,7 @@ export default class MediaMessage extends BaseMessage {
     this.caption = data.message?.imageMessage?.caption || null;
 
     this.url = data.message?.imageMessage?.url || null;
-    this.timestamp =
-      typeof data.messageTimestamp === 'object'
-        ? data.messageTimestamp.low
-        : data.messageTimestamp;
+    this.timestamp = data.messageTimestamp;
     this.mimetype = data.message?.imageMessage?.mimetype || null;
     this.height = data.message?.imageMessage?.height || null;
     this.width = data.message?.imageMessage?.width || null;

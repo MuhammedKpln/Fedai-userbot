@@ -1,14 +1,15 @@
-import { WAConnection, WAMessage } from '@adiwajshing/baileys';
-import { BaseMessage } from './base';
-import ReplyMessage from './replyMessage';
+import { WAMessage, WASocket } from "@whiskeysockets/baileys";
+import { BaseMessage } from "./base";
+import ReplyMessage from "./replyMessage";
 
 export default class Message extends BaseMessage {
   message: string | null;
-  timestamp: number;
+  timestamp: number | Long.Long | null | undefined;
   reply_message: ReplyMessage;
+
   mention: string[] | null;
 
-  constructor(client: WAConnection, data: WAMessage) {
+  constructor(client: WASocket, data: WAMessage) {
     super();
     this.client = client;
     this._patch(data);
@@ -27,24 +28,21 @@ export default class Message extends BaseMessage {
     } else {
       this.message = data.message?.conversation || null;
     }
+    // For repliying messages?
+
     if (data.message) {
       if (
         data.message?.extendedTextMessage &&
         data.message?.extendedTextMessage?.contextInfo
       ) {
-        this.reply_message = new ReplyMessage(
-          this.client,
-          data.message.extendedTextMessage.contextInfo,
-        );
+        console.log("OK");
+        this.reply_message = new ReplyMessage(this.client, data);
         this.mention =
           data.message?.extendedTextMessage?.contextInfo.mentionedJid || null;
       }
     }
 
-    this.timestamp =
-      typeof data.messageTimestamp === 'object'
-        ? data.messageTimestamp.low
-        : data.messageTimestamp;
+    this.timestamp = data.messageTimestamp;
     this.data = data;
   }
 }

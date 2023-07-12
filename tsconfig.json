@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["es2023"],
+    "module": "Node16",
+    "target": "es2022",
+    "moduleResolution": "node16",
+
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "jsx": "react",
     "alwaysStrict": true,
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,15 +18,8 @@
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": true,
+    "strictNullChecks": true
   },
-  "files": [
-    "src/languages/EN.json",
-    "src/languages/TR.json"
-  ],
-  "include": [
-    "src/**/*",
-    "src/languages/*.json",
-    "__tests__/**/*"
-  ]
+  "files": ["src/languages/EN.json", "src/languages/TR.json"],
+  "include": ["src/**/*", "src/languages/*.json", "__tests__/**/*"]
 }
