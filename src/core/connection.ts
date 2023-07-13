@@ -1,4 +1,6 @@
+import { Boom } from "@hapi/boom";
 import makeWASocket, {
+  DisconnectReason,
   WAMessageContent,
   WAMessageKey,
   fetchLatestBaileysVersion,
@@ -54,6 +56,23 @@ const startSocket = async () => {
 
   sock.ev.on("creds.update", async () => {
     await saveCreds();
+  });
+
+  sock.ev.on("connection.update", async (conn) => {
+    const { connection, lastDisconnect } = conn;
+    if (connection === "close") {
+      // reconnect if not logged out
+      if (
+        (lastDisconnect?.error as Boom)?.output?.statusCode !==
+        DisconnectReason.loggedOut
+      ) {
+        startSocket();
+      } else {
+        console.log("Connection closed. You are logged out.");
+      }
+    }
+
+    console.log("connection update", conn);
   });
 
   return sock;
