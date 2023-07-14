@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["es2023"],
+    "lib": [
+      "es2023"
+    ],
     "module": "Node16",
     "target": "es2022",
     "moduleResolution": "node16",
-
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "resolveJsonModule": true,
@@ -18,8 +19,16 @@
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
-  "files": ["src/languages/EN.json", "src/languages/TR.json"],
-  "include": ["src/**/*", "src/languages/*.json", "__tests__/**/*"]
+  "files": [
+    "src/languages/EN.json",
+    "src/languages/TR.json"
+  ],
+  "include": [
+    "src/**/*",
+    "src/languages/*.json",
+    "__tests__/**/*"
+  ]
 }
