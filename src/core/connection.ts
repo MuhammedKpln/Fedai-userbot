@@ -1,19 +1,13 @@
 import { Boom } from "@hapi/boom";
 import makeWASocket, {
   DisconnectReason,
-  WAMessageContent,
-  WAMessageKey,
   fetchLatestBaileysVersion,
   makeCacheableSignalKeyStore,
   makeInMemoryStore,
-  proto,
+  useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
 import NodeCache from "node-cache";
 import { Logger } from "./logger";
-import { useMongoDBAuthState } from './session/mongodb_helper';
-import { MongoClient } from 'mongodb';
-import { randomUUID } from 'crypto';
-
 
 const logger = Logger.child({
   module: "connection",
@@ -26,23 +20,16 @@ const msgRetryCounterCache = new NodeCache();
 // the store maintains the data of the WA connection in memory
 // can be written out to a file & read from it
 const store = makeInMemoryStore({ logger });
-store.readFromFile("./baileys_store_multi.json");
+store.readFromFile("./auth/baileys_store_multi.json");
 // save every 10s
 setInterval(() => {
-  store?.writeToFile("./baileys_store_multi.json");
+  store?.writeToFile("./auth/baileys_store_multi.json");
 }, 10_000);
 
-// start a connection
+// // start a connection
 
 const startSocket = async () => {
-  const mongoClient =  new MongoClient("mongodb://mongoadmin:secret@mongodb:27017/fedai?authSource=admin")
-  await mongoClient.connect()
-
-
-  const key = randomUUID()
-  const collection =mongoClient.db('fedai').collection(key)
-
-  const { state, saveCreds } = await  useMongoDBAuthState(collection)
+  const { state, saveCreds } = await useMultiFileAuthState("./auth/baileys");
   // fetch latest version of WA Web
   const { version, isLatest } = await fetchLatestBaileysVersion();
   logger.info(`using WA v${version.join(".")}, isLatest: ${isLatest}`);
@@ -57,10 +44,10 @@ const startSocket = async () => {
     },
     msgRetryCounterCache,
     generateHighQualityLinkPreview: true,
-    getMessage,
+    // getMessage,
   });
 
-  store?.bind(sock.ev);
+  // store?.bind(sock.ev);
 
   sock.ev.on("creds.update", async () => {
     await saveCreds();
@@ -85,17 +72,17 @@ const startSocket = async () => {
 
   return sock;
 
-  async function getMessage(
-    key: WAMessageKey,
-  ): Promise<WAMessageContent | undefined> {
-    if (store) {
-      const msg = await store.loadMessage(key.remoteJid!, key.id!);
-      return msg?.message || undefined;
-    }
+  // async function getMessage(
+  //   key: WAMessageKey,
+  // ): Promise<WAMessageContent | undefined> {
+  //   if (store) {
+  //     const msg = await store.loadMessage(key.remoteJid!, key.id!);
+  //     return msg?.message || undefined;
+  //   }
 
-    // only if store is present
-    return proto.Message.fromObject({});
-  }
+  //   // only if store is present
+  //   return proto.Message.fromObject({});
+  // }
 };
 
 export { startSocket };

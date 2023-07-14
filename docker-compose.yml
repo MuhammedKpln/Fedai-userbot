@@ -1,46 +1,10 @@
 version: "3.9"
 
 services:
-  mongodb:
-    image: mongo
-    restart: always
-    volumes:
-      - mongodata:/data/db
-    ports:
-      - 27017:27017
-    networks:
-      - mongonetwork
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongoadmin
-      MONGO_INITDB_ROOT_PASSWORD: secret
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    depends_on:
-      - mongodb
-    networks:
-      - mongonetwork
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: mongoadmin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
-      ME_CONFIG_MONGODB_URL: mongodb://mongoadmin:secret@mongodb:27017/
-
   fedai:
     build: .
     volumes:
       - ./:/root/fedai
+      - ./data:/root/fedai/build/src/auth
       - /root/fedai/node_modules
-    networks:
-      - mongonetwork
     restart: "always"
-    depends_on:
-      - mongodb
-
-
-volumes:
-  mongodata:
-networks:
-  mongonetwork:
