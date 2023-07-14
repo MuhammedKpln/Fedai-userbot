@@ -31,3 +31,4 @@ build/
 
 # Custom files
 config.env
+fedaibot.db

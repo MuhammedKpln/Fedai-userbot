@@ -14,7 +14,7 @@ kendi özelleştirdiği biçimde kullanabilir. Ayrıca eklenti (plugin) desteği
 orijinal yazılıma kullanıcıların kendi yazdıkları eklentileri yükleyerek istedikleri
 biçimde kullanmaları özelliğini sağlar.
 Kullanımı tamamen kullanıcının sorumluluğundadır,
-Asena Userbot yalnızca bir altyapıdır. Nasıl sonradan yüklenen programlarla
+Fedai Userbot yalnızca bir altyapıdır. Nasıl sonradan yüklenen programlarla
 yapılan işlerden işletim sistemi sorumlu değilse,
 Fedai da kullanıcıların kullanım amacı ve yönteminden sorumlu değildir.
 Fedai'yı para karşılığı pazarlamak, kullanıma sunmak yahut herhangi bir maddi değere sahip
@@ -26,7 +26,7 @@ The user is responsible for all consequences that may arise from incorrect or mi
 Since it is an open source project, anyone can copy the software, add and remove,
 and use it in a way that they customize. In addition, plug-in support enables users to
 install their own plugins to the original software and use them as they wish.
-Usage is entirely the user's responsibility, Asena Userbot is an
+Usage is entirely the user's responsibility, Fedai Userbot is an
 infrastructure only. Just as the operating system is not responsible
 for the work done with the programs that are installed later, Fedai
 is not responsible for the usage purpose and method of the users.
@@ -38,14 +38,6 @@ the user is responsible.
   <img src="https://i.imgyukle.com/2021/02/26/L6jcwG.jpg" width="200" height="200">
   <h1>🐺 FEDAI Userbot</h1>
 </div>
-<p align="center">
-    FEDAI project - Makes it easy and fun to use Whatsapp.
-    <br>
-        <a href="https://t.me/fedaiplugin">Telegram Channel</a> |
-        <a href="https://t.me/fedaisupport">Telegram Group</a> |
-        <a href="https://t.me/fedaiplugin">New Plugin Channel</a> |
-    <br>
-</p>
 
 ## 🔎 What is Fedai?
 
@@ -55,7 +47,6 @@ the user is responsible.
 
 ### Simple Method
 
-[![Run on Repl.it](https://repl.it/badge/github/muhammedkpln/fedai-qr)](https://repl.it/@MuhammedKpln/FEDAI-QR)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/muhammedkpln/fedai-userbot)
 
@@ -66,6 +57,7 @@ $ git clone https://github.com/muhammedkpln/fedai-userbot.git
 $ cd fedai
 $ npm i
 $ nano Config.env
+$ cp config.env.example confi.env
 // Config.env oluşturun ve düzenleyin.
 // Config.env create and edit.
 $ node bot.js
@@ -131,9 +123,9 @@ Support this project by becoming a [sponsor][sponsor].
 
 Licensed under the APLv2. See the [LICENSE](https://github.com/muhammedkpln/fedai-userbot/blob/master/LICENSE) file for details.
 
-[ts-badge]: https://img.shields.io/badge/TypeScript-4.1-blue.svg
-[nodejs-badge]: https://img.shields.io/badge/Node.js->=%2014.15-blue.svg
-[nodejs]: https://nodejs.org/dist/latest-v14.x/docs/api/
+[ts-badge]: https://img.shields.io/badge/TypeScript-5-blue.svg
+[nodejs-badge]: https://img.shields.io/badge/Node.js->=%2018-blue.svg
+[nodejs]: https://nodejs.org/dist/latest-v18.x/docs/api/
 [gha-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmuhammedkpln%2Ffedai-userbot%2Fbadge&style=flat
 [gha-ci]: https://github.com/muhammedkpln/fedai-userbot/actions
 [typescript]: https://www.typescriptlang.org/
