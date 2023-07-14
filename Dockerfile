@@ -1,8 +1,8 @@
-FROM node:15.11.0-alpine3.10
+FROM node:18-alpine
 
 RUN apk add git libwebp-tools ffmpeg-libs ffmpeg
 
-RUN git clone https://github.com/MuhammedKpln/fedai-userbot /root/fedai
+COPY . /root/fedai
 WORKDIR /root/fedai/
 RUN npm install
 RUN npm run build

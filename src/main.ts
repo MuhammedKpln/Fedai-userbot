@@ -5,7 +5,6 @@ import path from "node:path";
 
 import { LANG } from "./config";
 import { startSocket } from "./core/connection";
-import { database, loadDatabase } from "./core/database";
 import { loadedCommands } from "./core/events";
 import { infoMessage } from "./core/helpers";
 import { getString, loadLanguage } from "./core/language";
@@ -108,12 +107,9 @@ function commandCatcher(lastMessage: WAMessage) {
 
 async function init() {
   bot = await startSocket();
-  await database.sync();
   loadLanguage();
-  loadDatabase();
   loadPlugins();
   await loadExternalPlugins();
-  database.sync();
 
   bot.ev.process((event) => {
     const MESSAGE_UPSERT = event["messages.upsert"];

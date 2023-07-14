@@ -7,10 +7,13 @@ import makeWASocket, {
   makeCacheableSignalKeyStore,
   makeInMemoryStore,
   proto,
-  useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
 import NodeCache from "node-cache";
 import { Logger } from "./logger";
+import { useMongoDBAuthState } from './session/mongodb_helper';
+import { MongoClient } from 'mongodb';
+import { randomUUID } from 'crypto';
+
 
 const logger = Logger.child({
   module: "connection",
@@ -32,9 +35,14 @@ setInterval(() => {
 // start a connection
 
 const startSocket = async () => {
-  const { state, saveCreds } = await useMultiFileAuthState(
-    "baileys_auth_info_s",
-  );
+  const mongoClient =  new MongoClient("mongodb://mongoadmin:secret@mongodb:27017/fedai?authSource=admin")
+  await mongoClient.connect()
+
+
+  const key = randomUUID()
+  const collection =mongoClient.db('fedai').collection(key)
+
+  const { state, saveCreds } = await  useMongoDBAuthState(collection)
   // fetch latest version of WA Web
   const { version, isLatest } = await fetchLatestBaileysVersion();
   logger.info(`using WA v${version.join(".")}, isLatest: ${isLatest}`);

@@ -1,6 +1,6 @@
 import { readFile } from "fs/promises";
 import path from "path";
-import { LANG, changeLang } from "../config";
+import { changeLang } from "../config";
 import { addCommand, loadedCommands } from "../core/events";
 import { errorMessage, infoMessage, successfullMessage } from "../core/helpers";
 import { getString, loadLanguage } from "../core/language";
