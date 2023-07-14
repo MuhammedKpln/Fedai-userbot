@@ -10,7 +10,8 @@
           "WARN": "Warn",
           "NEW_COMMAND": "Please use 'help' command.",
           "ONLY_GROUPS": "This command can only be used inside groups!",
-          "ONLY_PM": "This command can only be used inside private chats!"
+          "ONLY_PM": "This command can only be used inside private chats!",
+          "CHANGED_LANGUAGE_SUCCESS":"Successfully changed language to: "
       },
       "_plugin": {
           "INSTALL_DESC": "Install external plugins.\n⌨️ Örnek: install https://gist.github.com/MuhammedKpln/60a1a008f1566a674a9bcabdd7b139c5",

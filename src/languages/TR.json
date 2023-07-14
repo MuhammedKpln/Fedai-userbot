@@ -10,7 +10,9 @@
           "WARN": "Uyarı",
           "NEW_COMMAND": "Lütfen help komutunu kullanin.",
           "ONLY_GROUPS": "Bu komut sadece gruplarda çalıştırılabilir.",
-          "ONLY_PM": "Bu komut sadece özel mesajlarda çalıştırılabilir."
+          "ONLY_PM": "Bu komut sadece özel mesajlarda çalıştırılabilir.",
+          "CHANGED_LANGUAGE_SUCCESS":"Dil başarıyla değiştirildi: "
+
       },
       "_plugin": {
           "INSTALL_DESC": "Plugin yükler.\n⌨️ Örnek: install https://gist.github.com/MuhammedKpln/60a1a008f1566a674a9bcabdd7b139c5",

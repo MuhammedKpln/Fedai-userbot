@@ -1,20 +1,21 @@
 import { readFile } from "fs/promises";
 import path from "path";
-import { changeLang } from "../config";
+import { LANG, changeLang } from "../config";
 import { addCommand, loadedCommands } from "../core/events";
-import { errorMessage, infoMessage } from "../core/helpers";
+import { errorMessage, infoMessage, successfullMessage } from "../core/helpers";
 import { getString, loadLanguage } from "../core/language";
 import { TLanguages } from "../interfaces/lang.interface";
 import Message from "../types/message";
 
-const Lang = getString("_bot");
 
 addCommand(
   { pattern: "fedai", fromMe: true, dontAddCommandList: true },
   async (client: Message) => {
+    const Lang = getString("_bot");
+
     const msg = infoMessage(Lang["NEW_COMMAND"]);
 
-    await client.sendMessage({ text: msg }, client.jid);
+    await client.edit( msg);
   },
 );
 
@@ -26,12 +27,15 @@ addCommand(
   },
   async (_client: Message, match: RegExpMatchArray) => {
     const lang = match[1];
+    const Lang = getString("_bot");
 
     try {
       await readFile(path.resolve("languages", lang.toUpperCase() + ".json"));
 
       changeLang(lang as TLanguages);
       loadLanguage();
+
+      await _client.edit(successfullMessage(Lang["CHANGED_LANGUAGE_SUCCESS"] + lang))
     } catch (e) {
       await _client.edit(errorMessage("Language is not supported."));
     }
@@ -41,6 +45,7 @@ addCommand(
 addCommand(
   { pattern: "help", fromMe: true, dontAddCommandList: true },
   async (client: Message) => {
+    const Lang = getString("_bot");
     // const commandForHelp: string = match[1];
     let CMD_HELP: string[] = [];
     loadedCommands.map((command) => {
@@ -87,6 +92,6 @@ addCommand(
       }
     });
 
-    await client.sendMessage({ text: CMD_HELP.join("") }, client.jid);
+    await client.edit(CMD_HELP.join(""));
   },
 );
