@@ -1,9 +1,9 @@
-import { HANDLERS } from '../config';
-import Message from '../types/message';
+import { HANDLERS } from "../config";
+import Message from "../types/message";
 
 interface ICommandArgs {
-  pattern: string;
-  on?: string;
+  pattern?: string;
+  on?: "text" | "image" | "video";
   fromMe: boolean;
   onlyGroup?: boolean;
   onlyPinned?: boolean;
@@ -15,18 +15,7 @@ interface ICommandArgs {
   warn?: string;
 }
 
-interface ICommand {
-  pattern: string;
-  on?: string;
-  fromMe: boolean;
-  onlyGroup?: boolean;
-  onlyPinned?: boolean;
-  onlyPm?: boolean;
-  deleteCommand?: boolean;
-  desc?: string;
-  usage?: string;
-  dontAddCommandList?: boolean;
-  warn?: string;
+interface ICommand extends ICommandArgs {
   function: (client: Message, match?: RegExpMatchArray) => void;
 }
 
@@ -37,48 +26,48 @@ export function addCommand(
   func: (client: Message, match?: RegExpMatchArray) => void,
 ): ICommand {
   // Basit bir fonksiyon, komut eklemek için.
-  var types = ['photo', 'image', 'text', 'message'];
+  var types = ["photo", "image", "text", "message"];
 
   var infos: ICommand = {
-    fromMe: info['fromMe'] === undefined ? true : info['fromMe'], // Or Sudo
-    pattern: info.pattern ? info.pattern : '',
-    onlyGroup: info['onlyGroup'] === undefined ? false : info['onlyGroup'],
-    onlyPinned: info['onlyPinned'] === undefined ? false : info['onlyPinned'],
-    onlyPm: info['onlyPm'] === undefined ? false : info['onlyPm'],
+    fromMe: info["fromMe"] === undefined ? true : info["fromMe"], // Or Sudo
+    pattern: info.pattern ? info.pattern : undefined,
+    onlyGroup: info["onlyGroup"] === undefined ? false : info["onlyGroup"],
+    onlyPinned: info["onlyPinned"] === undefined ? false : info["onlyPinned"],
+    onlyPm: info["onlyPm"] === undefined ? false : info["onlyPm"],
     deleteCommand:
-      info['deleteCommand'] === undefined ? true : info['deleteCommand'],
-    desc: info['desc'] === undefined ? '' : info['desc'],
-    usage: info['usage'] === undefined ? '' : info['usage'],
+      info["deleteCommand"] === undefined ? true : info["deleteCommand"],
+    desc: info["desc"] === undefined ? "" : info["desc"],
+    usage: info["usage"] === undefined ? "" : info["usage"],
     dontAddCommandList:
-      info['dontAddCommandList'] === undefined
+      info["dontAddCommandList"] === undefined
         ? false
-        : info['dontAddCommandList'],
-    warn: info['warn'] === undefined ? '' : info['warn'],
+        : info["dontAddCommandList"],
+    warn: info["warn"] === undefined ? "" : info["warn"],
     function: func,
   };
 
-  if (info['on'] === undefined && info['pattern'] === undefined) {
-    infos.on = 'message';
+  if (info["on"] === undefined && info["pattern"] === undefined) {
+    infos.on = "text";
     infos.fromMe = false;
-  } else if (info['on'] !== undefined && types.includes(info['on'])) {
-    infos.on = info['on'];
+  } else if (info["on"] !== undefined && types.includes(info["on"])) {
+    infos.on = info["on"];
 
-    if (info['pattern'] !== undefined) {
+    if (info["pattern"] !== undefined) {
       // @ts-ignore
       infos.pattern = new RegExp(
-        (info['handler'] === undefined || info['handler'] === true
+        (info["handler"] === undefined || info["handler"] === true
           ? HANDLERS
-          : '') + info.pattern,
-        info['flags'] !== undefined ? info['flags'] : '',
+          : "") + info.pattern,
+        info["flags"] !== undefined ? info["flags"] : "",
       );
     }
   } else {
     // @ts-ignore
     infos.pattern = new RegExp(
-      (info['handler'] === undefined || info['handler'] === true
+      (info["handler"] === undefined || info["handler"] === true
         ? HANDLERS
-        : '') + info.pattern,
-      info['flags'] !== undefined ? info['flags'] : '',
+        : "") + info.pattern,
+      info["flags"] !== undefined ? info["flags"] : "",
     );
   }
 

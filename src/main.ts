@@ -6,7 +6,7 @@ import path from "node:path";
 import { LANG } from "./config";
 import { startSocket } from "./core/connection";
 import { loadedCommands } from "./core/events";
-import { infoMessage } from "./core/helpers";
+import { errorMessage, infoMessage } from "./core/helpers";
 import { getString, loadLanguage } from "./core/language";
 import { Logger } from "./core/logger";
 import Message from "./types/message";
@@ -61,47 +61,62 @@ function commandCatcher(lastMessage: WAMessage) {
       await bot.sendPresenceUpdate("unavailable", lastMessage.key.remoteJid);
     }
 
-    if (lastMessage.key.fromMe) {
-      if (lastMessage.message?.conversation) {
-        // If user simply just use the command
-        message = lastMessage.message.conversation;
-      }
-      if (lastMessage.message?.extendedTextMessage) {
-        // If user quoted a message
-        if (lastMessage.message.extendedTextMessage.text) {
-          message = lastMessage.message.extendedTextMessage.text;
-        }
-      }
-      if (lastMessage.message?.imageMessage?.caption) {
-        // If replying a image message with command
-        message = lastMessage?.message?.imageMessage.caption;
-      }
-      // Check if message contains any command with help of regex.
-      let match: RegExpMatchArray | null = message.match(command.pattern);
-      // console.log(match);
-      if (match) {
-        const client = new Message(bot, lastMessage);
-
-        // Message is sent from a group
-        if (command.onlyGroup === true && !client.jid.includes("-")) {
-          return client.sendMessage({
-            text: infoMessage(getString("_bot")["ONLY_GROUPS"]),
-          });
-        }
-        // Message is not sent from a group
-        if (command.onlyPm === true && client.jid.includes("-")) {
-          return client.sendMessage({
-            text: infoMessage(getString("_bot")["ONLY_PM"]),
-          });
-        }
-
-        try {
-          command.function(client, match);
-        } catch (err) {
-          await sendLogToUser(err, lastMessage.key.remoteJid);
-        }
+    // if (lastMessage.key.fromMe) {
+    if (lastMessage.message?.conversation) {
+      // If user simply just use the command
+      message = lastMessage.message.conversation;
+    }
+    if (lastMessage.message?.extendedTextMessage) {
+      // If user quoted a message
+      if (lastMessage.message.extendedTextMessage.text) {
+        message = lastMessage.message.extendedTextMessage.text;
       }
     }
+    if (lastMessage.message?.imageMessage?.caption) {
+      // If replying a image message with command
+      message = lastMessage?.message?.imageMessage.caption;
+    }
+    let match: RegExpMatchArray | null;
+
+    if (command.pattern !== undefined) {
+      match = message.match(command.pattern);
+    } else match = message.match(message);
+
+    // Check if message contains any command with help of regex.
+
+    // console.log(match);
+    if (match) {
+      const client = new Message(bot, lastMessage);
+
+      // Message is sent from a group
+      if (command.onlyGroup === true && !client.jid.includes("-")) {
+        return client.sendMessage({
+          text: infoMessage(getString("_bot")["ONLY_GROUPS"]),
+        });
+      }
+      // Message is not sent from a group
+      if (command.onlyPm === true && client.jid.includes("-")) {
+        return client.sendMessage({
+          text: infoMessage(getString("_bot")["ONLY_PM"]),
+        });
+      }
+
+      if (command.fromMe !== undefined && command.fromMe) {
+        if (!lastMessage.key.fromMe) {
+          await bot.sendMessage(lastMessage.key.remoteJid!, {
+            text: errorMessage("Only author."),
+          });
+          return;
+        }
+      }
+
+      try {
+        command.function(client, match);
+      } catch (err) {
+        await sendLogToUser(err, lastMessage.key.remoteJid);
+      }
+    }
+    // }
   });
 }
 
