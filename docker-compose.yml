@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  fedai:
+    build: .
+    volumes:
+      - ./:/root/fedai
+      - ./data:/root/fedai/build/src/auth
+      - /root/fedai/node_modules
+      - /root/fedai/build
+    restart: "always"

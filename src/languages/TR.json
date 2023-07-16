@@ -114,7 +114,9 @@
           "NEED_REPLY": "Lütfen bir kullanıcının mesajına yanıt verin!",
           "ONLY_AUDIO":"Sadece ses dosyaları desteklenir.",
           "USAGE": "Sesteki cümleleri yazıya çevirir.",
-          "TEXT": "Hey! Seste bunları duydum!:\n\n"
+          "TEXT": "Hey! Seste bunları duydum!:\n\n",
+          "UNRECOGNIZED": "Anlayamadim...",
+          "RECOGNIZING": "Anlamaya calisiyorum.."
       },
       "notes": {
           "NOTES_USAGE": "Varolan tüm notlarınızı gösterir.",
