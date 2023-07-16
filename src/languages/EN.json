@@ -107,7 +107,10 @@
           "NEED_REPLY": "Please reply to any message!",
           "ONLY_AUDIO":"Only audio file is accepted.",
           "USAGE": "`It converts audio to text.",
-          "TEXT": "Hey! I listened secretly to this voice and heard those!: \n\n"
+          "TEXT": "Hey! I listened secretly to this voice and heard those!: \n\n",
+          "UNRECOGNIZED":"Could not extract the voice..",
+          "RECOGNIZING": "Trying to recognize the audio.."
+
       },
       "notes": {
           "NOTES_USAGE": "Shows all your existing notes.",

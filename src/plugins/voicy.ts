@@ -1,43 +1,13 @@
 import { downloadContentFromMessage } from "@whiskeysockets/baileys";
 import axios from "axios";
 import ffmpeg from "fluent-ffmpeg";
-import { Wit, } from "node-wit";
 import { createReadStream } from "node:fs";
-import { writeFile } from "node:fs/promises";
-import { Readable } from "node:stream";
+import { rm, writeFile } from "node:fs/promises";
 import { addCommand } from "../core/events";
-import { errorMessage, successfullMessage } from "../core/helpers";
+import { errorMessage, infoMessage, successfullMessage } from "../core/helpers";
 import { getString } from "../core/language";
 import { Logger } from "../core/logger";
-import  fetch from 'node-fetch'
-
-import { parse } from "node:path";
-const Lang = getString("voicy");
-
-function parseResponse(response) {
-  const chunks = response
-    .split("\r\n")
-    .map((x) => x.trim())
-    .filter((x) => x.length > 0);
-
-    // console.log(chunks)
-
-  let prev = "";
-  let jsons = [];
-  for (const chunk of chunks) {
-    try {
-      prev += chunk;
-      //@ts-ignore
-      jsons.push(JSON.parse(chunk));
-      prev = "";
-    } catch (_e) {
-      // console.error(_e)
-    }
-  }
-
-  return jsons;
-}
-
+import { Root } from "./types/voicy";
 
 export const parseChunkedResponse = <Dto>(body = ""): Dto[] => {
   // Split by newline, trim, remove empty lines
@@ -63,25 +33,9 @@ export const parseChunkedResponse = <Dto>(body = ""): Dto[] => {
 
 async function recognizeAudio(): Promise<string> {
   return new Promise(async (resolve) => {
-    const headers = {
-      "Content-Type": `audio/wav`,
-      Authorization: `Bearer ${process.env.WITAI_API}`,
-      Accept: "application/json",
-
-      "Transfer-Encoding": "chunked",
-
-    };
-
     const file = createReadStream("./output.wav");
-
-
-
-
-
-
-
-    const response = await axios.request<string>(
-      {
+    axios
+      .request<string>({
         method: "POST",
         url: "https://api.wit.ai/dictation",
         params: {
@@ -99,55 +53,24 @@ async function recognizeAudio(): Promise<string> {
         responseType: "text",
         data: file,
         transformResponse: (d) => d,
-      }
-    ).then((response) => {
-      const chunks = parseChunkedResponse(response.data);
-      const finalizedChunks = chunks.filter(
-        ({ is_final: isFinal }) => isFinal,
-      );
-      if (!finalizedChunks.length) {
-        Logger.warn(
-          `The final response chunk not found. Transcription is empty.`,
-          chunks.map(({ text }) => text),
+      })
+      .then((response) => {
+        const chunks = parseChunkedResponse<Root>(response.data);
+        const finalizedChunks = chunks.filter(
+          ({ is_final: isFinal }) => isFinal,
         );
-      }
+        if (!finalizedChunks.length) {
+          Logger.warn(
+            `The final response chunk not found. Transcription is empty.`,
+            chunks.map(({ text }) => text),
+          );
+        }
 
-      console.log(finalizedChunks)
-      return finalizedChunks;
-    })
+        resolve(finalizedChunks.map((chunk) => chunk.text).join(". "));
 
-
-
-
-    // // wit.dictation('audio/wav', response.body)
-    // response.data.on("readable", () => {
-    //   let chunk;
-    //   let contents = "";
-    //   while (null !== (chunk = response.body.read())) {
-    //     contents += chunk.toString()
-    //   }
-
-    //   console.log(parseResponse(contents))
-
-      // console.log(JSON.parse());
-
-      // for (const rsp of parseResponse(contents)) {
-      //   const { error, intents, is_final, text } = rsp;
-      //   if (!(error || intents)) {
-      //     if (is_final) {
-      //       console.log(text);
-
-      //       resolve(text);
-      //     }
-      //   }
-      // }
-    });
-
-    // response.data.on("end", async () => {
-    //   await rm("output.ogg");
-    //   await rm("output.wav");
-    // });
-  // });
+        return finalizedChunks;
+      });
+  });
 }
 const convertToWav = (file) => {
   return ffmpeg(file)
@@ -158,8 +81,10 @@ const convertToWav = (file) => {
 };
 
 addCommand(
-  { pattern: "voicy", desc: Lang["USAGE"], fromMe: false },
+  { pattern: "voicy", desc: getString("voicy")["USAGE"], fromMe: false },
   async (message) => {
+    const Lang = getString("voicy");
+
     try {
       if (message.reply_message) {
         if (message.reply_message.audio) {
@@ -169,6 +94,7 @@ addCommand(
           );
 
           try {
+            await message.edit(infoMessage(Lang["RECOGNIZING"]));
             const chunks: Buffer[] = [];
             const file = await downloadContentFromMessage(
               {
@@ -184,19 +110,23 @@ addCommand(
               "audio",
             );
 
-            // file.on("data", (data) => console.log("GOT DATA"));
             file.on("end", async () => {
               await writeFile("output.ogg", chunks);
 
               convertToWav("output.ogg").on("end", async () => {
+                try {
+                  const recognizedText = await recognizeAudio();
 
-                const recognizedText = await recognizeAudio();
-
-                // await message.edit(
-                //   successfullMessage(
-                //     Lang["TEXT"] + "```" + recognizedText + "```",
-                //   ),
-                // );
+                  await message.sendMessage({
+                    text: successfullMessage(
+                      `${Lang["TEXT"]} ${recognizedText}`,
+                    ),
+                  });
+                } catch (error) {
+                  await message.edit(infoMessage(Lang["UNRECOGNIZED"]));
+                } finally {
+                  await cleanup();
+                }
               });
             });
 
@@ -217,3 +147,8 @@ addCommand(
     }
   },
 );
+
+async function cleanup() {
+  await rm("output.ogg");
+  await rm("output.wav");
+}
